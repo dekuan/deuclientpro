@@ -32,7 +32,7 @@ class UCProConst
 	const CKT_UPDATE_TM	= 'utm';	//	int	- last update time
 	const CKT_KP_ALIVE	= 'kpa';	//	int	- keep alive, values( YES, NO )
 	const CKT_SS_MID	= 'smid';	//	string	- session mid
-	const CKT_CKS_SIGN	= 'css';	//	string	- checksum sign
+	const CKT_CKS_MD5	= 'csm';	//	string	- checksum sign
 	const CKT_CKS_CRC	= 'csc';	//	string	- checksum crc
 
 	//
@@ -43,7 +43,7 @@ class UCProConst
 	const CFGKEY_SEED       = 'seed';       //      seed for making sign
 	const CFGKEY_SECURE     = 'secure';     //      indicates that the cookie should only be transmitted over a secure HTTPS connection from the client.
 	const CFGKEY_HTTPONLY   = 'httponly';   //      when TRUE the cookie will be made accessible only through the HTTP protocol.
-	const CFGKEY_STIMEOUT   = 'stimeout';   //      session timeout
+	const CFGKEY_SS_TIMEOUT	= 'stimeout';   //      session timeout
 
 	//
 	//	default values

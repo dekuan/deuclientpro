@@ -19,6 +19,7 @@ class UCProError
 	const ERR_FAILURE		= -1000;	//      failed
 	const ERR_PARAMETER		= -1001;	//      error in parameter
 	const ERR_INVALID_XT_COOKIE	= -1002;	//	invalid XT cookie
+	const ERR_INVALID_XT_ARRAY	= -1002;	//	invalid XT cookie
 	const ERR_INVALID_CRC		= -1003;	//	invalid CRC
 	const ERR_INVALID_SIGN		= -1004;	//	invalid sign
 	const ERR_LOGIN_TIMEOUT		= -1005;	//	login timeout

@@ -4,12 +4,19 @@ namespace dekuan\deuclientpro;
 
 
 /**
- *      class of UCProCookie
+ *      class of UCProBase
  */
-class UCProCookie
+class UCProBase
 {
         //	statics
         protected static $g_cStaticInstance;
+
+
+	//
+	//	configuration
+	//
+	protected $m_arrCfg		= [];
+	
 
 
         public function __construct()
@@ -26,11 +33,20 @@ class UCProCookie
                 }
                 return self::$g_cStaticInstance;
         }
+	final private function __clone()
+	{
+	}
 
 
 
-
-
+	public function cloneConfig( $arrCfg )
+	{
+		$this->m_arrCfg = $arrCfg;
+	}
 }
 
 
+
+
+
+?>

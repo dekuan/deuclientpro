@@ -6,19 +6,9 @@ namespace dekuan\deuclientpro;
 /**
  *      class of UCProEncrypt
  */
-class UCProEncrypt extends UCProBase
+class UCProEncrypt
 {
-        public function __construct()
-        {
-        	parent::__construct();
-        }
-        public function __destruct()
-        {
-        	parent::__destruct();
-        }
-
-
-	static function _Decrypt( $vData )
+	static function decrypt( $vData )
 	{
 		if ( ! is_string( $vData ) && ! is_numeric( $vData ) )
 		{
@@ -28,7 +18,7 @@ class UCProEncrypt extends UCProBase
 		return rawurldecode( str_rot13( $sString ) );
 	}
 
-	static function _Encrypt( $vData )
+	static function encrypt( $vData )
 	{
 		if ( ! is_string( $vData ) && ! is_numeric( $vData ) )
 		{
@@ -38,7 +28,7 @@ class UCProEncrypt extends UCProBase
 		return str_rot13( rawurlencode( $sString ) );
 	}
 
-	static function _DecryptBase64( $vData )
+	static function decryptBase64( $vData )
 	{
 		if ( ! is_string( $vData ) && ! is_numeric( $vData ) )
 		{
@@ -48,7 +38,7 @@ class UCProEncrypt extends UCProBase
 		return rawurldecode( base64_decode( str_rot13( $sString ) ) );
 	}
 
-	static function _EncryptBase64( $vData )
+	static function encryptBase64( $vData )
 	{
 		if ( ! is_string( $vData ) && ! is_numeric( $vData ) )
 		{

@@ -37,8 +37,8 @@ class CTestUCClientDCal extends PHPUnit_Framework_TestCase
 	{
 		$cCUCClientDCal	= new CUCClientDCal();
 
-		$cCUCClientDCal->SetConfig( CUCClientDCal::CFGKEY_DOMAIN,	'.desktopcal.com' );
-		$cCUCClientDCal->SetConfig( CUCClientDCal::CFGKEY_SEED,		'sdsdsdsdq3e913-498234' );
+		$cCUCClientDCal->setConfig( CUCClientDCal::CFGKEY_DOMAIN,	'.desktopcal.com' );
+		$cCUCClientDCal->setConfig( CUCClientDCal::CFGKEY_SEED,		'sdsdsdsdq3e913-498234' );
 
 		$_COOKIE	=
 		[

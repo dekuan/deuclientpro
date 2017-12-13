@@ -75,21 +75,21 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 		foreach ( $arrConfigData as $sKey => $vValue )
 		{
 			$bSuccess	= false;
-			$cUCli->SetConfig( $sKey, $vValue );
+			$cUCli->setConfig( $sKey, $vValue );
 			if ( is_string( $vValue ) )
 			{
-				$bSuccess = ( 0 == strcmp( $vValue, $cUCli->GetConfig( $sKey ) ) );
+				$bSuccess = ( 0 == strcmp( $vValue, $cUCli->getConfig( $sKey ) ) );
 			}
 			else if ( is_bool( $vValue ) || is_numeric( $vValue ) )
 			{
-				$bSuccess = ( $vValue == $cUCli->GetConfig( $sKey ) );
+				$bSuccess = ( $vValue == $cUCli->getConfig( $sKey ) );
 			}
 			else
 			{
-				$bSuccess = ( $vValue == $cUCli->GetConfig( $sKey ) );
+				$bSuccess = ( $vValue == $cUCli->getConfig( $sKey ) );
 			}
 			$nErrorId	= ( $bSuccess ? 0 : -1 );
-			$this->_OutputResult( __FUNCTION__, "SetConfig['$sKey']", $nErrorId, $bSuccess );
+			$this->_OutputResult( __FUNCTION__, "setConfig['$sKey']", $nErrorId, $bSuccess );
 		}
 	}
 
@@ -129,8 +129,8 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 				ucli\CUCClient::CKT_SMID	=> '',
 			),
 		);
-		$cUCli->SetConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
-		$cUCli->SetConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
+		$cUCli->setConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
+		$cUCli->setConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
 
 		$sUMId		= $arrData[ ucli\CUCClient::CKX ][ ucli\CUCClient::CKX_UMID ];
 		$sCkString      = '';
@@ -175,8 +175,8 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 
 		//	...
 		$cUCli	= ucli\CUCClient::getInstance();
-		$cUCli->SetConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
-		$cUCli->SetConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
+		$cUCli->setConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
+		$cUCli->setConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
 
 		//	...
 		$nErrorId	= $cUCli->checkLogin();
@@ -202,8 +202,8 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 		//
 		//	make cookie
 		//
-		$cUCli->SetConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
-		$cUCli->SetConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
+		$cUCli->setConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
+		$cUCli->setConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
 
 		//	...
 		$sCookieString	= urldecode( 'X=mid%253D1011301016111816483435812320%2526nkn%253D%2525R6%25259Q%25258R%2525R5%2525O0%25258S%2525R9%2525OR%252599%2526t%253D0%2526imgid%253D159588np912r08093p37o5064930r6064%2526sts%253D1%2526act%253D0%2526src%253DCPJRO; T=v%253D1.0.2.1002%2526ltm%253D1466601791%2526rtm%253D1466688191%2526utm%253D1466688191%2526kpa%253D1%2526smid%253D%2526css%253D63pns46482qo51p7615nr1n479rop7o3%2526csc%253D2428648322' );
@@ -256,8 +256,8 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 				ucli\CUCClient::CKT_SMID	=> '',
 			),
 		);
-		$cUCli->SetConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
-		$cUCli->SetConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
+		$cUCli->setConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
+		$cUCli->setConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
 
 		$sUMId		= $arrData[ ucli\CUCClient::CKX ][ ucli\CUCClient::CKX_UMID ];
 		$sCkString      = '';
@@ -280,26 +280,26 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 		//
 		//      ...
 		//
-		$nErrorIdReset	= $cUCli->resetCookie( $sCkString );
+		$nErrorIdReset	= $cUCli->memsetCookieByString( $sCkString );
 		$nErrorId	= $cUCli->checkLogin();
 		$bResetCookie	= ( ucli\CUCClient::ERR_SUCCESS == $nErrorIdReset );
 		$bIsLoggedIn	= ( ucli\CUCClient::ERR_SUCCESS == $nErrorId );
-		$this->_OutputResult( __FUNCTION__, 'resetCookie', $nErrorIdReset, $bResetCookie );
+		$this->_OutputResult( __FUNCTION__, 'memsetCookieByString', $nErrorIdReset, $bResetCookie );
 		$this->_OutputResult( __FUNCTION__, 'checkLogin', $nErrorId, $bIsLoggedIn );
 		echo "\t@ Reset cookie via cookie string: " . ( $bResetCookie ? "successfully" : "failed" ) . "\r\n";
 		echo "\t@ Check login via cookie string: " . ( $bIsLoggedIn ? "successfully" : "failed" ) . "\r\n";
-		echo "\t->IsKeepAlive() = " . $cUCli->IsKeepAlive() . "\r\n";
-		echo "\t->isExistsXT() = " . $cUCli->isExistsXT() . "\r\n";
-		echo "\t->GetCookieString() = " . $cUCli->GetCookieString() . "\r\n";
+		echo "\t->isKeepAlive() = " . $cUCli->isKeepAlive() . "\r\n";
+		echo "\t->isExistsEncryptedXT() = " . $cUCli->isExistsEncryptedXT() . "\r\n";
+		echo "\t->getXTString() = " . $cUCli->getXTString() . "\r\n";
 		echo "\t->GetOriginalXTArray() = ";
 		print_r( $cUCli->GetOriginalXTArray() );
 		echo "\r\n";
-		echo "\t->GetXTArray() = ";
-		print_r( $cUCli->GetXTArray() );
+		echo "\t->getXTArray() = ";
+		print_r( $cUCli->getXTArray() );
 		echo "\r\n";
 
 		//
-		//	GetXTValue
+		//	getXTValue
 		//
 		$arrXTKeyMap =
 		[
@@ -329,7 +329,7 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 		{
 			foreach ( $arrKeyList as $sKey )
 			{
-				echo "\t->GetXTValue( '$sType', '$sKey' ) = " . $cUCli->GetXTValue( $sType, $sKey ) . "\r\n";
+				echo "\t->getXTValue( '$sType', '$sKey' ) = " . $cUCli->getXTValue( $sType, $sKey ) . "\r\n";
 			}
 		}
 
