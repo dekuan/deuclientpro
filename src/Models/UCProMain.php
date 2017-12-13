@@ -7,8 +7,6 @@ use dekuan\delib\CLib;
 
 /**
  *      class of UCProMain
- * 
- * 	All operations/methods about XT Array
  *
  */
 class UCProMain extends UCProBase

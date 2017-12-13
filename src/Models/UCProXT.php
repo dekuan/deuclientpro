@@ -7,8 +7,6 @@ use dekuan\delib\CLib;
 
 /**
  *      class of UCProCookie
- * 
- * 	All operations/methods about XT Array
  *
  */
 class UCProXT extends UCProBase
@@ -18,7 +16,7 @@ class UCProXT extends UCProBase
 
 	protected $m_arrXT		= [];
 
-	
+
         public function __construct()
         {
         	parent::__construct();
