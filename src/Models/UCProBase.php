@@ -1,6 +1,6 @@
 <?php
 
-namespace dekuan\deuclientpro;
+namespace dekuan\deuclientpro\Models;
 
 
 /**

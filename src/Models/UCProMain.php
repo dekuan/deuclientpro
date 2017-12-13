@@ -1,8 +1,9 @@
 <?php
 
-namespace dekuan\deuclientpro;
+namespace dekuan\deuclientpro\Models;
 
 use dekuan\delib\CLib;
+use dekuan\deuclientpro\UCProError;
 
 
 /**

@@ -1,8 +1,10 @@
 <?php
 
-namespace dekuan\deuclientpro;
+namespace dekuan\deuclientpro\Libs;
 
 use dekuan\delib\CLib;
+
+
 
 
 /**

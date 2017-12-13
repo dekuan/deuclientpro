@@ -1,8 +1,12 @@
 <?php
 
-namespace dekuan\deuclientpro;
+namespace dekuan\deuclientpro\Models;
 
 use dekuan\delib\CLib;
+use dekuan\deuclientpro\Libs\UCProEncrypt;
+use dekuan\deuclientpro\Libs\UCProLib;
+use dekuan\deuclientpro\UCProConst;
+use dekuan\deuclientpro\UCProError;
 
 
 /**
@@ -59,6 +63,14 @@ class UCProXT extends UCProBase
 		return $this->m_arrXT;
 	}
 
+	public function getXValue( $sKey )
+	{
+		return $this->getXTValue( UCProConst::CKX, $sKey );
+	}
+	public function getTValue( $sKey )
+	{
+		return $this->getXTValue( UCProConst::CKT, $sKey );
+	}
 	public function getXTValue( $sNode, $sKey )
 	{
 		//

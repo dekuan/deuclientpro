@@ -1,8 +1,10 @@
 <?php
 
-namespace dekuan\deuclientpro;
+namespace dekuan\deuclientpro\Models;
 
 use dekuan\delib\CLib;
+use dekuan\deuclientpro\Libs\UCProLib;
+use dekuan\deuclientpro\UCProConst;
 
 
 /**

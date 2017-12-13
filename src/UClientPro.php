@@ -28,7 +28,7 @@ class UClientPro
 
         public function __construct()
         {
-		$this->m_cUCProMain	= new UCProMain();
+		$this->m_cUCProMain	= new Models\UCProMain();
 	}
         public function __destruct()
         {
@@ -129,7 +129,7 @@ class UClientPro
 
 	public function isKeepAlive()
 	{
-		$nKeepAlive = intval( $this->m_cUCProMain->getXTInstance()->getXTValue( UCProConst::CKT, UCProConst::CKT_KP_ALIVE ) );
+		$nKeepAlive = intval( $this->m_cUCProMain->getXTInstance()->getTValue( UCProConst::CKT_KP_ALIVE ) );
 		return ( 1 === $nKeepAlive );
 	}
 
@@ -152,7 +152,7 @@ class UClientPro
 		//
 		//	Check session via service if T->CKT_REFRESH_TM is timeout
 		//
-		$nRefreshTime = $this->m_cUCProMain->getXTInstance()->getXTValue( UCProConst::CKT, UCProConst::CKT_REFRESH_TM );
+		$nRefreshTime = $this->m_cUCProMain->getXTInstance()->getTValue( UCProConst::CKT_REFRESH_TM );
 		if ( time() - $nRefreshTime > 0 )
 		{
 			//	refresh time is timeout, it's time to check via Redis
@@ -172,7 +172,7 @@ class UClientPro
 			else
 			{
 				//	...
-				$nLoginTime = $this->m_cUCProMain->getXTInstance()->getXTValue( UCProConst::CKT, UCProConst::CKT_LOGIN_TM );
+				$nLoginTime = $this->m_cUCProMain->getXTInstance()->getTValue( UCProConst::CKT_LOGIN_TM );
 				if ( is_numeric( $nLoginTime ) )
 				{
 					//
@@ -203,19 +203,6 @@ class UClientPro
 
 		return $bRet;
 	}
-
-	
-	
-	
-	
-	
-        ////////////////////////////////////////////////////////////////////////////////
-        //	protected
-        //
-
-
-
-
 
 
 

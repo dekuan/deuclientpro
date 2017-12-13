@@ -1,6 +1,8 @@
 <?php
 
-namespace dekuan\deuclientpro;
+namespace dekuan\deuclientpro\Libs;
+
+
 
 
 /**
