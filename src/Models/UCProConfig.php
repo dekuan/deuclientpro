@@ -67,5 +67,11 @@ class UCProConfig
 	
 	
 	
+	
+	public function getConfig_SessionTimeout()
+	{
+		return UCProLib::getSafeVal( UCProConst::CFGKEY_SS_TIMEOUT, $this->m_arrCfg, UCProConst::DEFAULT_SS_TIMEOUT );
+	}
+
 }
 

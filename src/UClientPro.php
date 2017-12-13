@@ -223,7 +223,7 @@ class UClientPro
 					//      the default timeout is 1 day.
 					//
 					$fTerm	= floatval( time() - floatval( $nLoginTime ) );
-					$bRet	= ( $fTerm > $this->m_arrCfg[ UCProConst::CFGKEY_SS_TIMEOUT ] );
+					$bRet	= ( $fTerm > $this->m_cUCProMain->getConfig_SessionTimeout() );
 				}
 				else
 				{
