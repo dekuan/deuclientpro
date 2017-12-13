@@ -16,8 +16,8 @@ class UCProMain extends UCProBase
 	protected $m_cUCProXT		= null;
 	protected $m_cUCProCookie	= null;
 	
-	
 
+	
         public function __construct()
         {
         	parent::__construct();
@@ -31,12 +31,24 @@ class UCProMain extends UCProBase
         	parent::__destruct();
         }
 
-	public function cloneConfig( $arrCfg )
+	public function setConfig( $sKey, $vValue )
 	{
-		$this->m_cUCProXT->cloneConfig( $arrCfg );
-		$this->m_cUCProCookie->cloneConfig( $arrCfg );
+		$bRet	= false;
+
+		if ( parent::setConfig( $sKey, $vValue ) )
+		{
+			$bRet	= true;
+
+			//	clone config to ...
+			$this->m_cUCProXT->cloneConfig( parent::getConfig() );
+			$this->m_cUCProCookie->cloneConfig( parent::getConfig() );
+		}
+
+		return $bRet;
 	}
 
+	
+	
 	public function getXTInstance()
 	{
 		return $this->m_cUCProXT;
@@ -107,10 +119,10 @@ class UCProMain extends UCProBase
 		$arrData[ UCProConst::CKT ][ UCProConst::CKT_CKS_CRC ]	= $this->getChecksumCrc( $arrData );
 
 		//	...
-		$arrEncryptedCk = $this->m_cUCProMain->getXTInstance()->encryptXTArray( $arrData );
+		$arrEncryptedCk = $this->m_cUCProXT->encryptXTArray( $arrData );
 		if ( CLib::IsArrayWithKeys( $arrEncryptedCk, [ UCProConst::CKX, UCProConst::CKT ] ) )
 		{
-			if ( $this->m_cUCProMain->getCookieInstance()->setCookiesForLogin( $arrEncryptedCk, $bKeepAlive, $sCkString ) )
+			if ( $this->m_cUCProCookie->setCookiesForLogin( $arrEncryptedCk, $bKeepAlive, $sCkString ) )
 			{
 				$nRet = UCProError::ERR_SUCCESS;
 			}
@@ -137,18 +149,18 @@ class UCProMain extends UCProBase
 		//	...
 		$nRet		= UCProError::ERR_UNKNOWN;
 		$bKeepAlive	= boolval( $bKeepAlive );
-		$arrEncryptedXT	= $this->m_cUCProMain->getCookieInstance()->parseCookieString( $sCookieString );
-		if ( $this->m_cUCProMain->getCookieInstance()->isValidCookieArray( $arrEncryptedXT ) )
+		$arrEncryptedXT	= $this->m_cUCProCookie->parseCookieString( $sCookieString );
+		if ( $this->m_cUCProCookie->isValidCookieArray( $arrEncryptedXT ) )
 		{
 			if ( UCProError::ERR_SUCCESS ==
-				$this->m_cUCProMain->getCookieInstance()->memsetCookieByCookieArray( $arrEncryptedXT ) )
+				$this->m_cUCProCookie->memsetCookieByCookieArray( $arrEncryptedXT ) )
 			{
 				if ( $bResponseCookie )
 				{
 					//
 					//	response cookie via HTTP header to the client
 					//
-					if ( $this->m_cUCProMain->getCookieInstance()->setCookiesForLogin( $arrEncryptedXT, $bKeepAlive ) )
+					if ( $this->m_cUCProCookie->setCookiesForLogin( $arrEncryptedXT, $bKeepAlive ) )
 					{
 						$nRet = UCProError::ERR_SUCCESS;
 					}
@@ -212,6 +224,11 @@ class UCProMain extends UCProBase
 	}
 
 
+	
+	
+	
+	
+	
 	//	build signature
 	public function getChecksumMd5( $arrData )
 	{
@@ -297,7 +314,9 @@ class UCProMain extends UCProBase
 
 
 
-
+	////////////////////////////////////////////////////////////////////////////////
+	//	protected
+	//
 
 
 	protected function _GetDigestSource( $arrData )

@@ -26,7 +26,7 @@ class UCProXT extends UCProBase
 
 	public function encryptXTArray( $arrData )
 	{
-		if ( ! $this->isValidXTArrayInDetail( $arrData ) )
+		if ( ! UCProLib::isValidXTArrayInDetail( $arrData ) )
 		{
 			return null;
 		}
@@ -94,7 +94,7 @@ class UCProXT extends UCProBase
 			if ( is_array( $arrPX ) && count( $arrPX ) &&
 				is_array( $arrPT ) && count( $arrPT ) )
 			{
-				if ( $this->isValidXTArrayInDetail( Array( UCProConst::CKX => $arrPX, UCProConst::CKT => $arrPT ) ) )
+				if ( UCProLib::isValidXTArrayInDetail( Array( UCProConst::CKX => $arrPX, UCProConst::CKT => $arrPT ) ) )
 				{
 					$arrX = Array
 					(

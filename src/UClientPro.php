@@ -8,8 +8,12 @@ use dekuan\delib\CLib;
 /**
  *	CUClientPro
  */
-class UClientPro extends UCProBase
+class UClientPro
 {
+	//	statics
+	protected static $g_cStaticInstance;
+
+
 	//
 	//	All operations/methods about cookies and encrypted $_COOKIE['X'], $_COOKIE['T']
 	//
@@ -24,65 +28,37 @@ class UClientPro extends UCProBase
 
         public function __construct()
         {
-        	parent::__construct();
-
-        	//	...
 		$this->m_cUCProMain	= new UCProMain();
-
-        	//	...
-                $this->m_arrCfg		=
-                [
-			UCProConst::CFGKEY_DOMAIN	=> UCProConst::DEFAULT_DOMAIN,
-			UCProConst::CFGKEY_PATH		=> UCProConst::DEFAULT_PATH,
-			UCProConst::CFGKEY_SEED		=> UCProConst::DEFAULT_SIGN_SEED,	//	seed
-			UCProConst::CFGKEY_SECURE	=> UCProConst::DEFAULT_SECURE,
-			UCProConst::CFGKEY_HTTPONLY	=> UCProConst::DEFAULT_HTTPONLY,
-			UCProConst::CFGKEY_SS_TIMEOUT	=> UCProConst::DEFAULT_SS_TIMEOUT,	//	session timeout, default is 1 day.
-                ];
-
-		//	clone config to ...
-		$this->m_cUCProMain->cloneConfig( $this->m_arrCfg );
 	}
         public function __destruct()
         {
-        	parent::__destruct();
         }
+	static function getInstance()
+	{
+		if ( is_null( self::$g_cStaticInstance ) || ! isset( self::$g_cStaticInstance ) )
+		{
+			self::$g_cStaticInstance = new self();
+		}
+		return self::$g_cStaticInstance;
+	}
+	final private function __clone()
+	{
+	}
 
+	
 
         //
         //	configuration
         //
         public function getConfig( $sKey = '' )
         {
-                if ( CLib::IsExistingString( $sKey ) &&
-			array_key_exists( $sKey, $this->m_arrCfg ) )
-                {
-                        return $this->m_arrCfg[ $sKey ];
-                }
-                else
-                {
-                        return $this->m_arrCfg;
-                }
+        	return $this->m_cUCProMain->getConfig( $sKey );
         }
         public function setConfig( $sKey, $vValue )
         {
-                if ( CLib::IsExistingString( $sKey ) &&
-			array_key_exists( $sKey, $this->m_arrCfg ) )
-                {
-                	//	...
-                        $this->m_arrCfg[ $sKey ] = $vValue;
-
-                        //	clone config to ...
-			$this->m_cUCProMain->cloneConfig( $this->m_arrCfg );
-
-			//	...
-                        return true;
-                }
-                else
-                {
-                        return false;
-                }
+		return $this->m_cUCProMain->setConfig( $sKey, $vValue );
         }
+
 
         //
         //	make user login
@@ -271,6 +247,11 @@ class UClientPro extends UCProBase
 		return $bRet;
 	}
 
+	
+	
+	
+	
+	
         ////////////////////////////////////////////////////////////////////////////////
         //	protected
         //
