@@ -68,10 +68,28 @@ class UCProConfig
 	
 	
 	
-	public function getConfig_SessionTimeout()
+	public function getConfig_nSessionTimeout()
 	{
-		return UCProLib::getSafeVal( UCProConst::CFGKEY_SS_TIMEOUT, $this->m_arrCfg, UCProConst::DEFAULT_SS_TIMEOUT );
+		return intval( UCProLib::getSafeVal( UCProConst::CFGKEY_SS_TIMEOUT, $this->m_arrCfg, UCProConst::DEFAULT_SS_TIMEOUT ) );
 	}
 
+	public function getConfig_bHttpOnly()
+	{
+		return boolval( UCProLib::getSafeVal( UCProConst::CFGKEY_HTTPONLY, $this->m_arrCfg, UCProConst::DEFAULT_HTTPONLY ) );
+	}
+
+	public function getConfig_bSecure()
+	{
+		return boolval( UCProLib::getSafeVal( UCProConst::CFGKEY_SECURE, $this->m_arrCfg, UCProConst::DEFAULT_SECURE ) );
+	}
+
+	public function getConfig_sDomain()
+	{
+		return strval( UCProLib::getSafeVal( UCProConst::CFGKEY_DOMAIN, $this->m_arrCfg, '' ) );
+	}
+	
+
+	
+	
 }
 

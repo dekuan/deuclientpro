@@ -84,7 +84,7 @@ class UClientPro
 	//
         public function logout()
         {
-                return ( $this->m_cUCProMain->getCookieInstance()->setCookiesForLogout() ? UCProError::ERR_SUCCESS : UCProError::ERR_FAILURE );
+                return $this->m_cUCProMain->getXTInstance()->getCookieInstance()->setCookiesForLogout();
         }
 
         //
@@ -102,7 +102,7 @@ class UClientPro
 		$nRet	= UCProError::ERR_UNKNOWN;
                 
                 //	...
-		$nCall	= $this->m_cUCProMain->checkXT();
+		$nCall	= $this->m_cUCProMain->getXTInstance()->checkXTArray();
                 if ( UCProError::ERR_SUCCESS == $nCall )
 		{
 			if ( ! $this->isSessionTimeout() )
@@ -129,57 +129,14 @@ class UClientPro
 
 	public function isKeepAlive()
 	{
-		$nKeepAlive = intval( $this->getXTValue( UCProConst::CKT, UCProConst::CKT_KP_ALIVE ) );
+		$nKeepAlive = intval( $this->m_cUCProMain->getXTInstance()->getXTValue( UCProConst::CKT, UCProConst::CKT_KP_ALIVE ) );
 		return ( 1 === $nKeepAlive );
 	}
 
 	public function getCookieString()
 	{
-		return $this->m_cUCProMain->getCookieInstance()->getCookieString();
+		return $this->m_cUCProMain->getXTInstance()->getCookieInstance()->getCookieString();
 	}
-	
-
-	
-	
-	
-	
-	
-	public function getXTArray()
-	{
-		return $this->m_cUCProMain->getXTInstance()->decryptXTArray( $this->m_cUCProMain->getCookieInstance()->getCookieArray() );
-        }
-
-	public function getXTValue( $sNode, $sKey )
-	{
-		//
-		//	sNode	- values( 'X', 'T' )
-		//	sKey	- keys
-		//	RETURN	- ...
-		//
-		if ( ! CLib::IsExistingString( $sNode ) ||
-			! CLib::IsExistingString( $sKey ) )
-		{
-			return null;
-		}
-
-		//	...
-		$vRet = null;
-
-		//	...
-		$arrData = $this->getXTArray();
-		if ( CLib::IsArrayWithKeys( $arrData, $sNode ) )
-		{
-			if ( CLib::IsArrayWithKeys( $arrData[ $sNode ], $sKey ) )
-			{
-				$vRet = $arrData[ $sNode ][ $sKey ];
-			}
-		}
-
-		return $vRet;
-	}
-
-
-
 
 
 	//	if login info has timeout
@@ -195,7 +152,7 @@ class UClientPro
 		//
 		//	Check session via service if T->CKT_REFRESH_TM is timeout
 		//
-		$nRefreshTime = $this->getXTValue( UCProConst::CKT, UCProConst::CKT_REFRESH_TM );
+		$nRefreshTime = $this->m_cUCProMain->getXTInstance()->getXTValue( UCProConst::CKT, UCProConst::CKT_REFRESH_TM );
 		if ( time() - $nRefreshTime > 0 )
 		{
 			//	refresh time is timeout, it's time to check via Redis
@@ -215,7 +172,7 @@ class UClientPro
 			else
 			{
 				//	...
-				$nLoginTime = $this->getXTValue( UCProConst::CKT, UCProConst::CKT_LOGIN_TM );
+				$nLoginTime = $this->m_cUCProMain->getXTInstance()->getXTValue( UCProConst::CKT, UCProConst::CKT_LOGIN_TM );
 				if ( is_numeric( $nLoginTime ) )
 				{
 					//
@@ -223,7 +180,7 @@ class UClientPro
 					//      the default timeout is 1 day.
 					//
 					$fTerm	= floatval( time() - floatval( $nLoginTime ) );
-					$bRet	= ( $fTerm > $this->m_cUCProMain->getConfig_SessionTimeout() );
+					$bRet	= ( $fTerm > $this->m_cUCProMain->getConfig_nSessionTimeout() );
 				}
 				else
 				{

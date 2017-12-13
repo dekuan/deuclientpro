@@ -35,13 +35,9 @@ class UCProCookie extends UCProBase
 
 
 
-	public function isExistsCookie( $arrCk = null )
+	public function isExistsCookie()
 	{
-		if ( null == $arrCk )
-		{
-			$arrCk = $this->m_arrCookie;
-		}
-		return $this->isValidCookieArray( $arrCk );
+		return $this->isValidCookieArray( $this->m_arrCookie );
 	}
 
 	public function isValidCookieArray( $arrCk )
@@ -66,14 +62,14 @@ class UCProCookie extends UCProBase
 	public function getCookieString()
 	{
 		$sRet		= '';
-		$arrDecryptedXT	= $this->getCookieArray();
-		if ( CLib::IsArrayWithKeys( $arrDecryptedXT, [ UCProConst::CKX, UCProConst::CKT ] ) )
+		$arrCookie	= $this->getCookieArray();
+		if ( $this->isValidCookieArray( $arrCookie ) )
 		{
 			$sRet = http_build_query
 			(
 				[
-					UCProConst::CKX	=> $arrDecryptedXT[ UCProConst::CKX ],
-					UCProConst::CKT	=> $arrDecryptedXT[ UCProConst::CKT ]
+					UCProConst::CKX	=> $arrCookie[ UCProConst::CKX ],
+					UCProConst::CKT	=> $arrCookie[ UCProConst::CKT ]
 				],
 				'', '; '
 			);
@@ -82,9 +78,9 @@ class UCProCookie extends UCProBase
 		return $sRet;
 	}
 
-	public function parseCookieString( $sXTString )
+	public function parseCookieString( $sCookieString )
 	{
-		if ( ! CLib::IsExistingString( $sXTString ) )
+		if ( ! CLib::IsExistingString( $sCookieString ) )
 		{
 			return null;
 		}
@@ -97,7 +93,7 @@ class UCProCookie extends UCProBase
 		//
 		//	parse X, T from string
 		//
-		$arrData = explode( '; ', $sXTString );
+		$arrData = explode( '; ', $sCookieString );
 		if ( is_array( $arrData ) && count( $arrData ) > 1 )
 		{
 			parse_str( $arrData[ 0 ], $arrCk0 );
@@ -140,9 +136,9 @@ class UCProCookie extends UCProBase
 		return $arrRet;
 	}
 
-	public function memsetCookieByCookieArray( $arrEncryptedCk )
+	public function msetCookieByCookieArray( $arrCookie )
 	{
-		if ( ! $this->isValidCookieArray( $arrEncryptedCk ) )
+		if ( ! $this->isValidCookieArray( $arrCookie ) )
 		{
 			return UCProError::ERR_INVALID_XT_COOKIE;
 		}
@@ -155,8 +151,8 @@ class UCProCookie extends UCProBase
 			$this->m_arrCookie = [];
 		}
 
-		$this->m_arrCookie[ UCProConst::CKX ]	= $arrEncryptedCk[ UCProConst::CKX ];
-		$this->m_arrCookie[ UCProConst::CKT ]	= $arrEncryptedCk[ UCProConst::CKT ];
+		$this->m_arrCookie[ UCProConst::CKX ]	= $arrCookie[ UCProConst::CKX ];
+		$this->m_arrCookie[ UCProConst::CKT ]	= $arrCookie[ UCProConst::CKT ];
 
 		return UCProError::ERR_SUCCESS;
 	}
@@ -166,11 +162,11 @@ class UCProCookie extends UCProBase
         //
 	//	...
 	//
-	public function setCookiesForLogin( $arrCookie, $bKeepAlive, & $sCkString = '' )
+	public function setCookiesForLogin( $arrCookie, $bKeepAlive, & $sCookieString = '' )
 	{
 		if ( ! $this->isValidCookieArray( $arrCookie ) )
 		{
-			return false;
+			return UCProError::ERR_ENCRYPT_XT;
 		}
 
 		//
@@ -178,21 +174,33 @@ class UCProCookie extends UCProBase
 		//	the browser will keep this cookie for 1 year.
 		//
 		$tmExpire = ( $bKeepAlive ? ( time() + UCProConst::CONFIG_TIME_SECONDS_YEAR ) : 0 );
-		return $this->setCookies( $arrCookie, $tmExpire, $sCkString );
+		if ( $this->setCookies( $arrCookie, $tmExpire, $sCookieString ) )
+		{
+			return UCProError::ERR_SUCCESS;
+		}
+		else
+		{
+			return UCProError::ERR_SET_COOKIE;
+		}
 	}
 
 	public function setCookiesForLogout()
 	{
-		$arrCookie	= Array( UCProConst::CKX => '', UCProConst::CKT => '' );
+		$arrCookie	= [ UCProConst::CKX => '', UCProConst::CKT => '' ];
 		$tmExpire	= time() - UCProConst::CONFIG_TIME_SECONDS_YEAR;
-		return $this->setCookies( $arrCookie, $tmExpire );
+		if ( $this->setCookies( $arrCookie, $tmExpire ) )
+		{
+			return UCProError::ERR_SUCCESS;
+		}
+		else
+		{
+			return UCProError::ERR_SET_COOKIE;
+		}
 	}
 
-	public function setCookies( $arrCookie, $tmExpire, & $sCkString = '' )
+	public function setCookies( $arrCookie, $tmExpire, & $sCookieString = '' )
 	{
-		if ( ! CLib::IsArrayWithKeys( $arrCookie, [ UCProConst::CKX, UCProConst::CKT ] ) ||
-			! is_string( $arrCookie[ UCProConst::CKX ] ) ||
-			! is_string( $arrCookie[ UCProConst::CKT ] ) )
+		if ( ! $this->isValidCookieArray( $arrCookie ) )
 		{
 			return false;
 		}
@@ -202,17 +210,17 @@ class UCProCookie extends UCProBase
 		}
 
 		//	...
-		$sDomain	= $this->getCookieDomain();
+		$sDomain	= $this->getConfig_sDomain();
 		$sPath		= $this->m_arrCfg[ UCProConst::CFGKEY_PATH ];
-		$sXValue        = rawurlencode( $arrCookie[ UCProConst::CKX ] );
-		$sTValue        = rawurlencode( $arrCookie[ UCProConst::CKT ] );
-		$sCkString      = http_build_query( Array( UCProConst::CKX => $sXValue, UCProConst::CKT => $sTValue ), '', '; ' );
+		$sXValue	= rawurlencode( $arrCookie[ UCProConst::CKX ] );
+		$sTValue	= rawurlencode( $arrCookie[ UCProConst::CKT ] );
+		$sCookieString	= http_build_query( Array( UCProConst::CKX => $sXValue, UCProConst::CKT => $sTValue ), '', '; ' );
 
 		//	...
-		if ( $this->m_arrCfg[ UCProConst::CFGKEY_HTTPONLY ] && $this->isSupportedSetHttpOnly() )
+		if ( $this->getConfig_bHttpOnly() && $this->isSupportedSetHttpOnly() )
 		{
-			setcookie( UCProConst::CKX, $sXValue, $tmExpire, $sPath, $sDomain, $this->m_arrCfg[ UCProConst::CFGKEY_SECURE ], true );
-			setcookie( UCProConst::CKT, $sTValue, $tmExpire, $sPath, $sDomain, $this->m_arrCfg[ UCProConst::CFGKEY_SECURE ], true );
+			setcookie( UCProConst::CKX, $sXValue, $tmExpire, $sPath, $sDomain, $this->getConfig_bSecure(), true );
+			setcookie( UCProConst::CKT, $sTValue, $tmExpire, $sPath, $sDomain, $this->getConfig_bSecure(), true );
 		}
 		else
 		{
@@ -221,12 +229,6 @@ class UCProCookie extends UCProBase
 		}
 
 		return true;
-	}
-
-
-	public function getCookieDomain()
-	{
-		return UCProLib::getSafeVal( UCProConst::CFGKEY_DOMAIN, $this->m_arrCfg, '' );
 	}
 
 	public function isSupportedSetHttpOnly()
