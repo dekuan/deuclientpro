@@ -135,10 +135,10 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 		$sUMId		= $arrData[ ucli\CUCClient::CKX ][ ucli\CUCClient::CKX_UMID ];
 		$sCkString      = '';
 		$nErrorId       = $cUCli->makeLogin( $arrData, true, $sCkString );
-		$bSuccess	= ( ucli\CUCClient::ERR_SUCCESS == $nErrorId );
+		$bSuccess	= ( ucli\CUCClient::SUCCESS == $nErrorId );
 		$this->_OutputResult( __FUNCTION__, 'makeLogin', $nErrorId, $bSuccess );
 		echo "\t@ try to make login for user [ $sUMId ]: \r\n";
-		if ( ucli\CUCClient::ERR_SUCCESS == $nErrorId )
+		if ( ucli\CUCClient::SUCCESS == $nErrorId )
 		{
 			echo "\t- successfully.\r\n";
 			echo "\t- Cookie string: " . $sCkString . "\r\n";
@@ -180,7 +180,7 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 
 		//	...
 		$nErrorId	= $cUCli->checkLogin();
-		$bIsLoggedIn	= ( ucli\CUCClient::ERR_SUCCESS == $nErrorId );
+		$bIsLoggedIn	= ( ucli\CUCClient::SUCCESS == $nErrorId );
 		$this->_OutputResult( __FUNCTION__, 'checkLogin', $nErrorId, $bIsLoggedIn );
 		echo "\t@ Check login via cookie: " . ( $bIsLoggedIn ? "successfully" : "failed" ) . "\r\n";
 		echo "\r\n";
@@ -209,7 +209,7 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 		$sCookieString	= urldecode( 'X=mid%253D1011301016111816483435812320%2526nkn%253D%2525R6%25259Q%25258R%2525R5%2525O0%25258S%2525R9%2525OR%252599%2526t%253D0%2526imgid%253D159588np912r08093p37o5064930r6064%2526sts%253D1%2526act%253D0%2526src%253DCPJRO; T=v%253D1.0.2.1002%2526ltm%253D1466601791%2526rtm%253D1466688191%2526utm%253D1466688191%2526kpa%253D1%2526smid%253D%2526css%253D63pns46482qo51p7615nr1n479rop7o3%2526csc%253D2428648322' );
 
 		$nErrorId	= $cUCli->MakeLoginWithCookieString( $sCookieString );
-		$bIsLoggedIn	= ( ucli\CUCClient::ERR_SUCCESS == $nErrorId );
+		$bIsLoggedIn	= ( ucli\CUCClient::SUCCESS == $nErrorId );
 		$this->_OutputResult( __FUNCTION__, 'MakeLoginWithCookieString', $nErrorId, $bIsLoggedIn );
 		echo "\t@ Make login via cookie string: " . ( $bIsLoggedIn ? "successfully" : "failed" ) . "\r\n";
 		echo "\r\n";
@@ -262,10 +262,10 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 		$sUMId		= $arrData[ ucli\CUCClient::CKX ][ ucli\CUCClient::CKX_UMID ];
 		$sCkString      = '';
 		$nErrorId       = $cUCli->makeLogin( $arrData, true, $sCkString );
-		$bSuccess	= ( ucli\CUCClient::ERR_SUCCESS == $nErrorId );
+		$bSuccess	= ( ucli\CUCClient::SUCCESS == $nErrorId );
 		$this->_OutputResult( __FUNCTION__, 'makeLogin', $nErrorId, $bSuccess );
 		echo "\t@ try to make login for user [ $sUMId ]: \r\n";
-		if ( ucli\CUCClient::ERR_SUCCESS == $nErrorId )
+		if ( ucli\CUCClient::SUCCESS == $nErrorId )
 		{
 			echo "\t- successfully.\r\n";
 			echo "\t- Cookie string: " . $sCkString . "\r\n";
@@ -282,8 +282,8 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 		//
 		$nErrorIdReset	= $cUCli->memsetCookieByString( $sCkString );
 		$nErrorId	= $cUCli->checkLogin();
-		$bResetCookie	= ( ucli\CUCClient::ERR_SUCCESS == $nErrorIdReset );
-		$bIsLoggedIn	= ( ucli\CUCClient::ERR_SUCCESS == $nErrorId );
+		$bResetCookie	= ( ucli\CUCClient::SUCCESS == $nErrorIdReset );
+		$bIsLoggedIn	= ( ucli\CUCClient::SUCCESS == $nErrorId );
 		$this->_OutputResult( __FUNCTION__, 'memsetCookieByString', $nErrorIdReset, $bResetCookie );
 		$this->_OutputResult( __FUNCTION__, 'checkLogin', $nErrorId, $bIsLoggedIn );
 		echo "\t@ Reset cookie via cookie string: " . ( $bResetCookie ? "successfully" : "failed" ) . "\r\n";

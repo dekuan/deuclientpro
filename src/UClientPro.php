@@ -76,7 +76,7 @@ class UClientPro
 		}
 		else
 		{
-			return UCProError::ERR_FAILURE;
+			return UCProError::UCLIENTPRO_MAKELOGIN_FAILURE;
 		}
 	}
 
@@ -96,24 +96,25 @@ class UClientPro
                 if ( null !== $this->m_bIsLoggedIn )
                 {
                         //	have already checked
-                        return ( $this->m_bIsLoggedIn ? UCProError::ERR_SUCCESS : UCProError::ERR_FAILURE );
+                        return ( $this->m_bIsLoggedIn ? 
+				UCProError::SUCCESS : UCProError::UCLIENTPRO_CHECKLOGIN_FAILURE );
                 }
 
 		//	...
-		$nRet	= UCProError::ERR_UNKNOWN;
-                
+		$nRet	= UCProError::UCLIENTPRO_CHECKLOGIN_FAILURE;
+
                 //	...
 		$nCall	= $this->m_cUCProMain->getXTInstance()->checkXTArray();
-                if ( UCProError::ERR_SUCCESS == $nCall )
+                if ( UCProError::SUCCESS == $nCall )
 		{
 			if ( ! $this->isSessionTimeout() )
 			{
-				$nRet = UCProError::ERR_SUCCESS;
+				$nRet = UCProError::SUCCESS;
 			}
 			else
 			{
 				//      Session is timeout
-				$nRet = UCProError::ERR_LOGIN_TIMEOUT;
+				$nRet = UCProError::UCLIENTPRO_CHECKLOGIN_SESSION_TIMEOUT;
 			}
                 }
                 else
@@ -122,7 +123,7 @@ class UClientPro
                 }
 
                 //	push to cache
-                $this->m_bIsLoggedIn = ( UCProError::ERR_SUCCESS == $nRet );
+                $this->m_bIsLoggedIn = ( UCProError::SUCCESS == $nRet );
 
                 //	...
                 return $nRet;
@@ -148,7 +149,7 @@ class UClientPro
 
 		//      ...
 		$bValidSession  = true;
-		$cSession	= new UCSession();
+		$cSession	= new UCProSession();
 
 		//
 		//	Check session via service if T->CKT_REFRESH_TM is timeout

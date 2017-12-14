@@ -143,7 +143,7 @@ class UCProCookie extends UCProBase
 	{
 		if ( ! $this->isValidCookieArray( $arrCookie ) )
 		{
-			return UCProError::ERR_INVALID_XT_COOKIE;
+			return UCProError::MODELS_UCPROCOOKIE_MSETCOOKIEBYCOOKIEARRAY_PARAM_COOKIE;
 		}
 
 		//
@@ -157,7 +157,7 @@ class UCProCookie extends UCProBase
 		$this->m_arrCookie[ UCProConst::CKX ]	= $arrCookie[ UCProConst::CKX ];
 		$this->m_arrCookie[ UCProConst::CKT ]	= $arrCookie[ UCProConst::CKT ];
 
-		return UCProError::ERR_SUCCESS;
+		return UCProError::SUCCESS;
 	}
 
 
@@ -169,21 +169,22 @@ class UCProCookie extends UCProBase
 	{
 		if ( ! $this->isValidCookieArray( $arrCookie ) )
 		{
-			return UCProError::ERR_ENCRYPT_XT;
+			return UCProError::MODELS_UCPROCOOKIE_SETCOOKIESFORLOGIN_PARAM_COOKIE;
 		}
 
 		//
 		//	set the expire date as 1 year.
 		//	the browser will keep this cookie for 1 year.
 		//
-		$tmExpire = ( $bKeepAlive ? ( time() + UCProConst::CONFIG_TIME_SECONDS_YEAR ) : 0 );
-		if ( $this->setCookies( $arrCookie, $tmExpire, $sCookieString ) )
+		$tmExpire	= ( $bKeepAlive ? ( time() + UCProConst::CONFIG_TIME_SECONDS_YEAR ) : 0 );
+		$nCall		= $this->setCookies( $arrCookie, $tmExpire, $sCookieString );
+		if ( UCProError::SUCCESS == $nCall )
 		{
-			return UCProError::ERR_SUCCESS;
+			return UCProError::SUCCESS;
 		}
 		else
 		{
-			return UCProError::ERR_SET_COOKIE;
+			return $nCall;
 		}
 	}
 
@@ -191,13 +192,14 @@ class UCProCookie extends UCProBase
 	{
 		$arrCookie	= [ UCProConst::CKX => '', UCProConst::CKT => '' ];
 		$tmExpire	= time() - UCProConst::CONFIG_TIME_SECONDS_YEAR;
-		if ( $this->setCookies( $arrCookie, $tmExpire ) )
+		$nCall		= $this->setCookies( $arrCookie, $tmExpire );
+		if ( UCProError::SUCCESS == $nCall )
 		{
-			return UCProError::ERR_SUCCESS;
+			return UCProError::SUCCESS;
 		}
 		else
 		{
-			return UCProError::ERR_SET_COOKIE;
+			return $nCall;
 		}
 	}
 
@@ -205,11 +207,11 @@ class UCProCookie extends UCProBase
 	{
 		if ( ! $this->isValidCookieArray( $arrCookie ) )
 		{
-			return false;
+			return UCProError::MODELS_UCPROCOOKIE_SETCOOKIES_PARAM_COOKIE;
 		}
 		if ( ! is_numeric( $tmExpire ) )
 		{
-			return false;
+			return UCProError::MODELS_UCPROCOOKIE_SETCOOKIES_PARAM_TMEXPIRE;
 		}
 
 		//	...
@@ -231,7 +233,7 @@ class UCProCookie extends UCProBase
 			setcookie( UCProConst::CKT, $sTValue, $tmExpire, $sPath, $sDomain );
 		}
 
-		return true;
+		return UCProError::SUCCESS;
 	}
 
 	public function isSupportedSetHttpOnly()

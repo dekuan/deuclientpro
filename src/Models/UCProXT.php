@@ -97,17 +97,17 @@ class UCProXT extends UCProBase
 	{
 		if ( ! UCProLib::isValidXTArray( $arrData ) )
 		{
-			return UCProError::ERR_PARAMETER;
+			return UCProError::MODELS_UCPROXT_FLASHXTARRAY_PARAM_ARRDATA;
 		}
 		if ( ! CLib::IsArrayWithKeys( $arrData[ UCProConst::CKX ],
 			[ UCProConst::CKX_MID, UCProConst::CKX_TYPE, UCProConst::CKX_STATUS, UCProConst::CKX_ACTION ] ) )
 		{
-			return UCProError::ERR_PARAMETER;
+			return UCProError::MODELS_UCPROXT_FLASHXTARRAY_PARAM_CKX;
 		}
 		if ( ! CLib::IsArrayWithKeys( $arrData[ UCProConst::CKT ],
 			[ UCProConst::CKT_LOGIN_TM, UCProConst::CKT_REFRESH_TM, UCProConst::CKT_UPDATE_TM ] ) )
 		{
-			return UCProError::ERR_PARAMETER;
+			return UCProError::MODELS_UCPROXT_FLASHXTARRAY_PARAM_CKT;
 		}
 
 		//
@@ -120,13 +120,13 @@ class UCProXT extends UCProBase
 		$arrXTArrayReturn[ UCProConst::CKT ][ UCProConst::CKT_CKS_CRC ]		= $this->m_cUCProChecksum->getChecksumCrc( $arrData );
 
 		//	...
-		return UCProError::ERR_SUCCESS;
+		return UCProError::SUCCESS;
 	}
 
 
 	public function checkXTArray()
 	{
-		$nRet = UCProError::ERR_UNKNOWN;
+		$nRet = UCProError::MODELS_UCPROXT_CHECKXTARRAY_FAILURE;
 
 		//	...
 		if ( $this->isExistsXT() )
@@ -135,28 +135,29 @@ class UCProXT extends UCProBase
 			{
 				if ( $this->m_cUCProChecksum->isValidChecksumCrc( $this->getXTArray() ) )
 				{
-					$nRet = UCProError::ERR_SUCCESS;
+					$nRet = UCProError::SUCCESS;
 				}
 				else
 				{
-					$nRet = UCProError::ERR_INVALID_CRC;
+					$nRet = UCProError::MODELS_UCPROXT_CHECKXTARRAY_INVALID_CHECKSUM_CRC;
 				}
 			}
 			else
 			{
 				//      invalid sign
-				$nRet = UCProError::ERR_INVALID_SIGN;
+				$nRet = UCProError::MODELS_UCPROXT_CHECKXTARRAY_INVALID_CHECKSUM_MD5;
 			}
 		}
 		else
 		{
 			//      cookie is not exists
-			$nRet = UCProError::ERR_BAD_COOKIE;
+			$nRet = UCProError::MODELS_UCPROXT_CHECKXTARRAY_BAD_COOKIE;
 		}
 
 		//	...
 		return $nRet;
 	}
+
 
 	public function encryptXTArray( $arrData )
 	{
@@ -292,11 +293,8 @@ class UCProXT extends UCProBase
 		);
 	}
 
-        
-        
-        
-        
-        
-        
+	
+
+
 }
 

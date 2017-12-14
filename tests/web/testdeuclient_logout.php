@@ -21,7 +21,7 @@ function testdeuclient_main()
 
 	echo "<pre>";
 
-	if ( ucli\CUCClient::ERR_SUCCESS == $cUCli->checkLogin() )
+	if ( ucli\CUCClient::SUCCESS == $cUCli->checkLogin() )
 	{
 		echo "checkLogin successfully.\r\n";
 		print_r( $cUCli->getXTArray() );

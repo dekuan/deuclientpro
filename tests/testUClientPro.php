@@ -49,11 +49,11 @@ class testUClientPro extends \PHPUnit\Framework\TestCase
 		$sUMId		= $arrData[ UCProConst::CKX ][ UCProConst::CKX_MID ];
 		$sCkString      = '';
 		$nErrorId       = $cUClientPro->makeLogin( $arrData, true, $sCkString );
-		$bSuccess	= ( UCProError::ERR_SUCCESS == $nErrorId );
+		$bSuccess	= ( UCProError::SUCCESS == $nErrorId );
 
 		$this->_OutputResult( __FUNCTION__, 'makeLogin', $nErrorId, $bSuccess );
 		echo "\t@ try to make login for user [ $sUMId ]: \r\n";
-		if ( UCProError::ERR_SUCCESS == $nErrorId )
+		if ( UCProError::SUCCESS == $nErrorId )
 		{
 			echo "\t- successfully.\r\n";
 			echo "\t- Cookie string: " . $sCkString . "\r\n";

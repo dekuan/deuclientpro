@@ -3,6 +3,7 @@
 namespace dekuan\deuclientpro\Models;
 
 use dekuan\delib\CLib;
+use dekuan\deuclientpro\Libs\UCProLib;
 use dekuan\deuclientpro\UCProError;
 
 
@@ -71,18 +72,20 @@ class UCProMain extends UCProBase
 		//	)
 		//	bKeepAlive	- [in] keep alive
 		//      sCkString       - [out] a string contains the full XT cookie
-		//	RETURN		- self::ERR_SUCCESS successfully, otherwise error id
+		//	RETURN		- self::SUCCESS successfully, otherwise error id
 		//
+		$nRet		= UCProError::MODELS_UCPROMAIN_MAKELOGINBYXTARRAY_FAILURE;
 		$arrXTArray	= null;
 		$nCall		= $this->m_cUCProXT->flashXTArray( $arrData, $bKeepAlive, $arrXTArray );
-		if ( UCProError::ERR_SUCCESS == $nCall )
+		if ( UCProError::SUCCESS == $nCall &&
+			UCProLib::isValidXTArrayInDetail( $arrXTArray ) )
 		{
 			//	...
-			$arrCookie	= $this->m_cUCProXT->encryptXTArray( $arrData );
+			$arrCookie	= $this->m_cUCProXT->encryptXTArray( $arrXTArray );
 			$nCall		= $this->m_cUCProXT->getCookieInstance()->setCookiesForLogin( $arrCookie, $bKeepAlive, $sCookieString );
-			if ( UCProError::ERR_SUCCESS == $nCall )
+			if ( UCProError::SUCCESS == $nCall )
 			{
-				$nRet = UCProError::ERR_SUCCESS;
+				$nRet = UCProError::SUCCESS;
 			}
 			else
 			{
@@ -105,17 +108,17 @@ class UCProMain extends UCProBase
 	{
 		if ( ! CLib::IsExistingString( $sCookieString ) )
 		{
-			return UCProError::ERR_PARAMETER;
+			return UCProError::MODELS_UCPROMAIN_MAKELOGINBYCOOKIESTRING_PARAM_COOKIESTRING;
 		}
 
 		//	...
-		$nRet		= UCProError::ERR_UNKNOWN;
+		$nRet		= UCProError::MODELS_UCPROMAIN_MAKELOGINBYCOOKIESTRING_FAILURE;
 		$bKeepAlive	= boolval( $bKeepAlive );
 		$arrCookie	= $this->m_cUCProXT->getCookieInstance()->parseCookieString( $sCookieString );
 		if ( $this->m_cUCProXT->getCookieInstance()->isValidCookieArray( $arrCookie ) )
 		{
-			if ( UCProError::ERR_SUCCESS ==
-				$this->m_cUCProXT->getCookieInstance()->msetCookieByCookieArray( $arrCookie ) )
+			$nCall	= $this->m_cUCProXT->getCookieInstance()->msetCookieByCookieArray( $arrCookie );
+			if ( UCProError::SUCCESS == $nCall )
 			{
 				if ( $bResponseCookie )
 				{
@@ -123,9 +126,9 @@ class UCProMain extends UCProBase
 					//	response cookie via HTTP header to the client
 					//
 					$nCall = $this->m_cUCProXT->getCookieInstance()->setCookiesForLogin( $arrCookie, $bKeepAlive );
-					if ( UCProError::ERR_SUCCESS == $nCall )
+					if ( UCProError::SUCCESS == $nCall )
 					{
-						$nRet = UCProError::ERR_SUCCESS;
+						$nRet = UCProError::SUCCESS;
 					}
 					else
 					{
@@ -135,17 +138,17 @@ class UCProMain extends UCProBase
 				else
 				{
 					//	from now on, we are successful
-					$nRet = UCProError::ERR_SUCCESS;
+					$nRet = UCProError::SUCCESS;
 				}
 			}
 			else
 			{
-				$nRet = UCProError::ERR_RESET_COOKIE;
+				$nRet = $nCall;
 			}
 		}
 		else
 		{
-			$nRet = UCProError::ERR_INVALID_XT_COOKIE;
+			$nRet = UCProError::MODELS_UCPROMAIN_MAKELOGINBYCOOKIESTRING_INVALID_COOKIE;
 		}
 
 		return $nRet;

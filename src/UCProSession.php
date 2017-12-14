@@ -4,9 +4,9 @@ namespace dekuan\deuclientpro;
 
 
 /**
- *      class of CUCSession
+ *      class of UCProSession
  */
-class UCSession
+class UCProSession
 {
         //	statics
         protected static $g_cStaticInstance;
