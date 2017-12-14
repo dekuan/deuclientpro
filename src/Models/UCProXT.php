@@ -184,7 +184,7 @@ class UCProXT extends UCProBase
 			UCProConst::CKT_REFRESH_TM	=> UCProLib::getSafeVal( UCProConst::CKT_REFRESH_TM, $arrData[ UCProConst::CKT ], 0 ),
 			UCProConst::CKT_UPDATE_TM	=> UCProLib::getSafeVal( UCProConst::CKT_UPDATE_TM, $arrData[ UCProConst::CKT ], 0 ),
 			UCProConst::CKT_KP_ALIVE	=> UCProLib::getSafeVal( UCProConst::CKT_KP_ALIVE, $arrData[ UCProConst::CKT ], 0 ),
-			UCProConst::CKT_SS_MID		=> UCProLib::getSafeVal( UCProConst::CKT_SS_MID, $arrData[ UCProConst::CKT ], '' ),
+			UCProConst::CKT_SS_ID		=> UCProLib::getSafeVal( UCProConst::CKT_SS_ID, $arrData[ UCProConst::CKT ], '' ),
 			UCProConst::CKT_CKS_MD5		=> UCProLib::getSafeVal( UCProConst::CKT_CKS_MD5, $arrData[ UCProConst::CKT ], '' ),
 			UCProConst::CKT_CKS_CRC		=> UCProLib::getSafeVal( UCProConst::CKT_CKS_CRC, $arrData[ UCProConst::CKT ], '' ),
 		);
@@ -248,7 +248,7 @@ class UCProXT extends UCProBase
 						UCProConst::CKT_REFRESH_TM	=> UCProLib::getSafeVal( UCProConst::CKT_REFRESH_TM, $arrPT, 0 ),
 						UCProConst::CKT_UPDATE_TM	=> UCProLib::getSafeVal( UCProConst::CKT_UPDATE_TM, $arrPT, 0 ),
 						UCProConst::CKT_KP_ALIVE	=> UCProLib::getSafeVal( UCProConst::CKT_KP_ALIVE, $arrPT, 0 ),
-						UCProConst::CKT_SS_MID		=> UCProLib::getSafeVal( UCProConst::CKT_SS_MID, $arrPT, '' ),
+						UCProConst::CKT_SS_ID		=> UCProLib::getSafeVal( UCProConst::CKT_SS_ID, $arrPT, '' ),
 						UCProConst::CKT_CKS_MD5		=> UCProLib::getSafeVal( UCProConst::CKT_CKS_MD5, $arrPT, '' ),
 						UCProConst::CKT_CKS_CRC		=> UCProLib::getSafeVal( UCProConst::CKT_CKS_CRC, $arrPT, 0 ),
 					);

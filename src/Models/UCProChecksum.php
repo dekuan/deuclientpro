@@ -137,7 +137,7 @@ class UCProChecksum extends UCProBase
 		strval( UCProLib::getSafeVal( UCProConst::CKT_REFRESH_TM, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
 		strval( UCProLib::getSafeVal( UCProConst::CKT_UPDATE_TM, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
 		strval( UCProLib::getSafeVal( UCProConst::CKT_KP_ALIVE, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKT_SS_MID, $arrData[ UCProConst::CKT ], '' ) );
+		strval( UCProLib::getSafeVal( UCProConst::CKT_SS_ID, $arrData[ UCProConst::CKT ], '' ) );
 
 		//	...
 		return $sRet;

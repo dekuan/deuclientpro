@@ -3,8 +3,7 @@
 namespace dekuan\deuclientpro\Libs;
 
 use dekuan\delib\CLib;
-
-
+use dekuan\deuclientpro\UCProConst;
 
 
 /**

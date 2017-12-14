@@ -31,7 +31,7 @@ class UCProConst
 	const CKT_REFRESH_TM	= 'rtm';	//	int	- last refresh time
 	const CKT_UPDATE_TM	= 'utm';	//	int	- last update time
 	const CKT_KP_ALIVE	= 'kpa';	//	int	- keep alive, values( YES, NO )
-	const CKT_SS_MID	= 'smid';	//	string	- session mid
+	const CKT_SS_ID		= 'ssid';	//	string	- session id
 	const CKT_CKS_MD5	= 'csm';	//	string	- checksum sign
 	const CKT_CKS_CRC	= 'csc';	//	string	- checksum crc
 

@@ -3,6 +3,7 @@
 namespace dekuan\deuclientpro;
 
 use dekuan\delib\CLib;
+use dekuan\deuclientpro\Libs\UCProLib;
 
 
 /**
