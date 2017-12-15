@@ -13,7 +13,7 @@ class UCProLib
 {
 	static function isPhpServerEnv()
 	{
-		return CLib::IsArrayWithKeys( $_SERVER );
+		return CLib::IsArrayWithKeys( $_SERVER, [ 'HTTP_USER_AGENT', 'HTTP_HOST', 'SERVER_NAME' ] );
 	}
 
 	static function getSafeVal( $sKey, $arrData, $vDefault = null )

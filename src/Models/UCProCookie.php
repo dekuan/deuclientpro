@@ -46,8 +46,9 @@ class UCProCookie extends UCProBase
 	public function isValidCookieArray( $arrCk )
 	{
 		return ( CLib::IsArrayWithKeys( $arrCk, [ UCProConst::CKX, UCProConst::CKT ] ) &&
-			CLib::IsExistingString( $arrCk[ UCProConst::CKX ] ) &&
-			CLib::IsExistingString( $arrCk[ UCProConst::CKT ] ) );
+			( is_string( $arrCk[ UCProConst::CKX ] ) || is_numeric( $arrCk[ UCProConst::CKX ] ) ) &&
+			( is_string( $arrCk[ UCProConst::CKT ] ) || is_numeric( $arrCk[ UCProConst::CKT ] ) )
+		);
 	}
 
 	public function getCookieArray()
@@ -205,6 +206,8 @@ class UCProCookie extends UCProBase
 
 	public function setCookies( $arrCookie, $tmExpire, & $sCookieString = '' )
 	{
+//		$e = new \Exception;
+//		var_dump( $e->getTraceAsString() );
 		if ( ! $this->isValidCookieArray( $arrCookie ) )
 		{
 			return UCProError::MODELS_UCPROCOOKIE_SETCOOKIES_PARAM_COOKIE;
@@ -235,15 +238,16 @@ class UCProCookie extends UCProBase
 				setcookie( UCProConst::CKT, $sTValue, $tmExpire, $sPath, $sDomain );
 			}			
 		}
-		else
+		else if ( CLib::IsArrayWithKeys( $_SERVER, 'DUMP_HEADER' ) )
 		{
+			printf( "\r\n" );
 			printf( "------------------------------------------------------------\r\n" );
 			printf( "TERMINAL OUTPUT HTTP HEADER\r\n" );
 			printf( "\r\n" );
-			printf( "Set-Cookie: " . UCProConst::CKX . "=" . $sXValue . "; domain=" . $sDomain . "; path=" . $sPath . "\r\n" );
-			printf( "Set-Cookie: " . UCProConst::CKT . "=" . $sTValue . "; domain=" . $sDomain . "; path=" . $sPath . "\r\n" );
+			printf( "Set-Cookie: %s=%s; expires=%d; domain=%s; path=%s\r\n", UCProConst::CKX, $sXValue, $tmExpire, $sDomain, $sPath );
+			printf( "Set-Cookie: %s=%s; expires=%d; domain=%s; path=%s\r\n", UCProConst::CKT, $sTValue, $tmExpire, $sDomain, $sPath );
 			printf( "\r\n" );
-			printf( "CookieString: " . $sCookieString . "\r\n" );
+			printf( "CookieString: %s\r\n", $sCookieString );
 			printf( "------------------------------------------------------------\r\n" );
 		}
 

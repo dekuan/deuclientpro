@@ -111,13 +111,17 @@ class UCProXT extends UCProBase
 		}
 
 		//
-		//      make signature and crc checksum
+		//	copy
 		//
 		$arrXTArrayReturn = $arrData;
+
+		//
+		//      make signature and crc checksum
+		//
 		$arrXTArrayReturn[ UCProConst::CKT ][ UCProConst::CKT_KP_ALIVE ]	= ( boolval( $bKeepAlive ) ? 1 : 0 );
 		$arrXTArrayReturn[ UCProConst::CKT ][ UCProConst::CKT_VER ]		= UCProConst::COOKIE_VERSION;
-		$arrXTArrayReturn[ UCProConst::CKT ][ UCProConst::CKT_CKS_MD5 ]		= $this->m_cUCProChecksum->getChecksumMd5( $arrData );
-		$arrXTArrayReturn[ UCProConst::CKT ][ UCProConst::CKT_CKS_CRC ]		= $this->m_cUCProChecksum->getChecksumCrc( $arrData );
+		$arrXTArrayReturn[ UCProConst::CKT ][ UCProConst::CKT_CKS_MD5 ]		= $this->m_cUCProChecksum->getChecksumMd5( $arrXTArrayReturn );
+		$arrXTArrayReturn[ UCProConst::CKT ][ UCProConst::CKT_CKS_CRC ]		= $this->m_cUCProChecksum->getChecksumCrc( $arrXTArrayReturn );
 
 		//	...
 		return UCProError::SUCCESS;
@@ -131,9 +135,10 @@ class UCProXT extends UCProBase
 		//	...
 		if ( $this->isExistsXT() )
 		{
-			if ( $this->m_cUCProChecksum->isValidChecksumMd5( $this->getXTArray() ) )
+			$arrXT	= $this->getXTArray();
+			if ( $this->m_cUCProChecksum->isValidChecksumMd5( $arrXT ) )
 			{
-				if ( $this->m_cUCProChecksum->isValidChecksumCrc( $this->getXTArray() ) )
+				if ( $this->m_cUCProChecksum->isValidChecksumCrc( $arrXT ) )
 				{
 					$nRet = UCProError::SUCCESS;
 				}

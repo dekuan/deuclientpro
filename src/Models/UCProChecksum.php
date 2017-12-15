@@ -74,6 +74,7 @@ class UCProChecksum extends UCProBase
 		{
 			$sSignDataNow	= $this->getChecksumMd5( $arrXTArray );
 			$sSignDataCk	= UCProLib::getSafeVal( UCProConst::CKT_CKS_MD5, $arrXTArray[ UCProConst::CKT ], '' );
+
 			if ( CLib::IsExistingString( $sSignDataNow ) &&
 				CLib::IsExistingString( $sSignDataCk ) &&
 				CLib::IsCaseSameString( $sSignDataNow, $sSignDataCk ) )
@@ -131,13 +132,17 @@ class UCProChecksum extends UCProBase
 		strval( UCProLib::getSafeVal( UCProConst::CKX_ACTION, $arrData[ UCProConst::CKX ], 0 ) ) . "-" .
 		strval( UCProLib::getSafeVal( UCProConst::CKX_SRC, $arrData[ UCProConst::CKX ], '' ) ) . "-" .
 		strval( UCProLib::getSafeVal( UCProConst::CKX_DIGEST, $arrData[ UCProConst::CKX ], '' ) ) . "-" .
-		"---" .
+		"|||" .
 		strval( UCProLib::getSafeVal( UCProConst::CKT_VER, $arrData[ UCProConst::CKT ], '' ) ) . "-" .
 		strval( UCProLib::getSafeVal( UCProConst::CKT_LOGIN_TM, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
 		strval( UCProLib::getSafeVal( UCProConst::CKT_REFRESH_TM, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
 		strval( UCProLib::getSafeVal( UCProConst::CKT_UPDATE_TM, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
 		strval( UCProLib::getSafeVal( UCProConst::CKT_KP_ALIVE, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
 		strval( UCProLib::getSafeVal( UCProConst::CKT_SS_ID, $arrData[ UCProConst::CKT ], '' ) );
+
+//		var_dump( $sRet );
+//		$e = new \Exception;
+//		var_dump( $e->getTraceAsString() );
 
 		//	...
 		return $sRet;

@@ -38,22 +38,22 @@ class UCProConst
 	//
 	//      keys for configuration
 	//
-	const CONFIG_COOKIE_DOMAIN	= 'domain';     //      domain that the cookie is available to.
-	const CONFIG_COOKIE_PATH	= 'path';       //      path on the server in which the cookie will be available on.
-	const CONFIG_COOKIE_SEED	= 'seed';       //      seed for making sign
-	const CONFIG_SECURE		= 'secure';     //      indicates that the cookie should only be transmitted over a secure HTTPS connection from the client.
-	const CONFIG_HTTP_ONLY		= 'httponly';   //      when TRUE the cookie will be made accessible only through the HTTP protocol.
-	const CONFIG_SS_TIMEOUT		= 'stimeout';   //      session timeout
+	const CONFIG_COOKIE_DOMAIN	= 'cookie_domain';	//      domain that the cookie is available to.
+	const CONFIG_COOKIE_PATH	= 'cookie_path';	//      path on the server in which the cookie will be available on.
+	const CONFIG_COOKIE_SEED	= 'cookie_seed';	//	seed for making sign
+	const CONFIG_SECURE		= 'secure';		//	indicates that the cookie should only be transmitted over a secure HTTPS connection from the client.
+	const CONFIG_HTTP_ONLY		= 'http_only';		//	when TRUE the cookie will be made accessible only through the HTTP protocol.
+	const CONFIG_SS_TIMEOUT		= 'ss_timeout';		//	session timeout
 
 	//
 	//	default values
 	//
-	const DEFAULT_DOMAIN            = '.dekuan.org';
-	const DEFAULT_PATH	        = '/';
-	const DEFAULT_SIGN_SEED	        = '03abafc5ssss-2f15-66ea-bc1f-51805f380f06/9b2331cb-8a9c-4a29-a9ab-25e13359279c';
-	const DEFAULT_SECURE	        = false;	//	cookie should only be transmitted over a secure HTTPS connection from the client
-	const DEFAULT_HTTP_ONLY	        = true;		//	cookie will be made accessible only through the HTTP protocol
-	const DEFAULT_SS_TIMEOUT	= 86400;	//	session timeout, default is 1 day.
+	const DEFAULT_DOMAIN		= '.dekuan.org';
+	const DEFAULT_PATH		= '/';
+	const DEFAULT_SIGN_SEED		= '03abafc5ssss-2f15-66ea-bc1f-51805f380f06/9b2331cb-8a9c-4a29-a9ab-25e13359279c';
+	const DEFAULT_SECURE		= false;		//	cookie should only be transmitted over a secure HTTPS connection from the client
+	const DEFAULT_HTTP_ONLY		= true;			//	cookie will be made accessible only through the HTTP protocol
+	const DEFAULT_SS_TIMEOUT	= 86400;		//	session timeout, default is 1 day.
 
 	//
 	//	config values

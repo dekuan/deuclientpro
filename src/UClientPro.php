@@ -207,6 +207,10 @@ class UClientPro
 	}
 
 
+	public function getXTArray()
+	{
+		return $this->m_cUCProMain->getXTInstance()->getXTArray();
+	}
 
 }
 
