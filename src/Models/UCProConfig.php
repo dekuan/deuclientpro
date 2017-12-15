@@ -23,12 +23,12 @@ class UCProConfig
         {
 		$this->m_arrCfg	=
 		[
-			UCProConst::CFGKEY_DOMAIN	=> UCProConst::DEFAULT_DOMAIN,
-			UCProConst::CFGKEY_PATH		=> UCProConst::DEFAULT_PATH,
-			UCProConst::CFGKEY_SEED		=> UCProConst::DEFAULT_SIGN_SEED,	//	seed
-			UCProConst::CFGKEY_SECURE	=> UCProConst::DEFAULT_SECURE,
-			UCProConst::CFGKEY_HTTPONLY	=> UCProConst::DEFAULT_HTTPONLY,
-			UCProConst::CFGKEY_SS_TIMEOUT	=> UCProConst::DEFAULT_SS_TIMEOUT,	//	session timeout, default is 1 day.
+			UCProConst::CONFIG_COOKIE_DOMAIN	=> UCProConst::DEFAULT_DOMAIN,
+			UCProConst::CONFIG_COOKIE_PATH		=> UCProConst::DEFAULT_PATH,
+			UCProConst::CONFIG_COOKIE_SEED		=> UCProConst::DEFAULT_SIGN_SEED,	//	seed
+			UCProConst::CONFIG_SECURE		=> UCProConst::DEFAULT_SECURE,
+			UCProConst::CONFIG_HTTP_ONLY		=> UCProConst::DEFAULT_HTTP_ONLY,
+			UCProConst::CONFIG_SS_TIMEOUT		=> UCProConst::DEFAULT_SS_TIMEOUT,	//	session timeout, default is 1 day.
 		];
         }
         public function __destruct()
@@ -72,22 +72,22 @@ class UCProConfig
 	
 	public function getConfig_nSessionTimeout()
 	{
-		return intval( UCProLib::getSafeVal( UCProConst::CFGKEY_SS_TIMEOUT, $this->m_arrCfg, UCProConst::DEFAULT_SS_TIMEOUT ) );
+		return intval( UCProLib::getSafeVal( UCProConst::CONFIG_SS_TIMEOUT, $this->m_arrCfg, UCProConst::DEFAULT_SS_TIMEOUT ) );
 	}
 
 	public function getConfig_bHttpOnly()
 	{
-		return boolval( UCProLib::getSafeVal( UCProConst::CFGKEY_HTTPONLY, $this->m_arrCfg, UCProConst::DEFAULT_HTTPONLY ) );
+		return boolval( UCProLib::getSafeVal( UCProConst::CONFIG_HTTP_ONLY, $this->m_arrCfg, UCProConst::DEFAULT_HTTP_ONLY ) );
 	}
 
 	public function getConfig_bSecure()
 	{
-		return boolval( UCProLib::getSafeVal( UCProConst::CFGKEY_SECURE, $this->m_arrCfg, UCProConst::DEFAULT_SECURE ) );
+		return boolval( UCProLib::getSafeVal( UCProConst::CONFIG_SECURE, $this->m_arrCfg, UCProConst::DEFAULT_SECURE ) );
 	}
 
-	public function getConfig_sDomain()
+	public function getConfig_sCookieDomain()
 	{
-		return strval( UCProLib::getSafeVal( UCProConst::CFGKEY_DOMAIN, $this->m_arrCfg, '' ) );
+		return strval( UCProLib::getSafeVal( UCProConst::CONFIG_COOKIE_DOMAIN, $this->m_arrCfg, '' ) );
 	}
 	
 

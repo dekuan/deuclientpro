@@ -36,7 +36,7 @@ class UCProChecksum extends UCProBase
 		$sString	= $this->_GetDigestSource( $arrData );
 		if ( CLib::IsExistingString( $sString ) )
 		{
-			$sData	= ( md5( $sString ) . "-" . $sString . "-" . $this->m_arrCfg[ UCProConst::CFGKEY_SEED ] );
+			$sData	= ( md5( $sString ) . "-" . $sString . "-" . $this->m_arrCfg[ UCProConst::CONFIG_COOKIE_SEED ] );
 			$sData	= mb_strtolower( $sData );
 			$sRet	= md5( $sData );
 		}
@@ -57,7 +57,7 @@ class UCProChecksum extends UCProBase
 		$sString	= $this->_GetDigestSource( $arrData );
 		if ( CLib::IsExistingString( $sString ) )
 		{
-			$sData	= mb_strtolower( trim( $sString . "-" . $this->m_arrCfg[ UCProConst::CFGKEY_SEED ] ) );
+			$sData	= mb_strtolower( trim( $sString . "-" . $this->m_arrCfg[ UCProConst::CONFIG_COOKIE_SEED ] ) );
 			$nRet	= abs( crc32( $sData ) );
 		}
 

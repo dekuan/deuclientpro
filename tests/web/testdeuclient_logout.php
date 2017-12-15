@@ -15,8 +15,8 @@ function testdeuclient_main()
 	$cUCli	= ucli\CUCClient::getInstance();
 
 	//	...
-	$cUCli->setConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
-	$cUCli->setConfig( ucli\CUCClient::CFGKEY_SEED, '5adf23adb-8815-46ea-ees1f-198sdcsf380f04/83221234cb-5af5c-1234f-88acd-12348sdsda2sdf' );
+	$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_DOMAIN, '.xs.cn' );
+	$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_SEED, '5adf23adb-8815-46ea-ees1f-198sdcsf380f04/83221234cb-5af5c-1234f-88acd-12348sdsda2sdf' );
 	
 
 	echo "<pre>";

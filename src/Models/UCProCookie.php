@@ -215,22 +215,36 @@ class UCProCookie extends UCProBase
 		}
 
 		//	...
-		$sDomain	= $this->getConfig_sDomain();
-		$sPath		= $this->m_arrCfg[ UCProConst::CFGKEY_PATH ];
+		$sDomain	= $this->getConfig_sCookieDomain();
+		$sPath		= $this->m_arrCfg[ UCProConst::CONFIG_COOKIE_PATH ];
 		$sXValue	= rawurlencode( $arrCookie[ UCProConst::CKX ] );
 		$sTValue	= rawurlencode( $arrCookie[ UCProConst::CKT ] );
 		$sCookieString	= http_build_query( Array( UCProConst::CKX => $sXValue, UCProConst::CKT => $sTValue ), '', '; ' );
 
 		//	...
-		if ( $this->getConfig_bHttpOnly() && $this->isSupportedSetHttpOnly() )
+		if ( UCProLib::isPhpServerEnv() )
 		{
-			setcookie( UCProConst::CKX, $sXValue, $tmExpire, $sPath, $sDomain, $this->getConfig_bSecure(), true );
-			setcookie( UCProConst::CKT, $sTValue, $tmExpire, $sPath, $sDomain, $this->getConfig_bSecure(), true );
+			if ( $this->getConfig_bHttpOnly() && $this->isSupportedSetHttpOnly() )
+			{
+				setcookie( UCProConst::CKX, $sXValue, $tmExpire, $sPath, $sDomain, $this->getConfig_bSecure(), true );
+				setcookie( UCProConst::CKT, $sTValue, $tmExpire, $sPath, $sDomain, $this->getConfig_bSecure(), true );
+			}
+			else
+			{
+				setcookie( UCProConst::CKX, $sXValue, $tmExpire, $sPath, $sDomain );
+				setcookie( UCProConst::CKT, $sTValue, $tmExpire, $sPath, $sDomain );
+			}			
 		}
 		else
 		{
-			setcookie( UCProConst::CKX, $sXValue, $tmExpire, $sPath, $sDomain );
-			setcookie( UCProConst::CKT, $sTValue, $tmExpire, $sPath, $sDomain );
+			printf( "------------------------------------------------------------\r\n" );
+			printf( "TERMINAL OUTPUT HTTP HEADER\r\n" );
+			printf( "\r\n" );
+			printf( "Set-Cookie: " . UCProConst::CKX . "=" . $sXValue . "; domain=" . $sDomain . "; path=" . $sPath . "\r\n" );
+			printf( "Set-Cookie: " . UCProConst::CKT . "=" . $sTValue . "; domain=" . $sDomain . "; path=" . $sPath . "\r\n" );
+			printf( "\r\n" );
+			printf( "CookieString: " . $sCookieString . "\r\n" );
+			printf( "------------------------------------------------------------\r\n" );
 		}
 
 		return UCProError::SUCCESS;

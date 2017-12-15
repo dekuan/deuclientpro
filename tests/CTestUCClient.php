@@ -64,11 +64,11 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 
 		$arrConfigData	=
 		[
-			ucli\CUCClient::CFGKEY_DOMAIN	=> '.xs.cn',
-			ucli\CUCClient::CFGKEY_PATH	=> '/',
-			ucli\CUCClient::CFGKEY_SEED	=> 'my-random-seed-string',	//	seed
-			ucli\CUCClient::CFGKEY_SECURE	=> false,
-			ucli\CUCClient::CFGKEY_HTTPONLY	=> true,
+			ucli\CUCClient::CONFIG_COOKIE_DOMAIN	=> '.xs.cn',
+			ucli\CUCClient::CONFIG_COOKIE_PATH	=> '/',
+			ucli\CUCClient::CONFIG_COOKIE_SEED	=> 'my-random-seed-string',	//	seed
+			ucli\CUCClient::CONFIG_SECURE		=> false,
+			ucli\CUCClient::CONFIG_HTTP_ONLY	=> true,
 			ucli\CUCClient::CFGKEY_STIMEOUT	=> 86400,			//	session timeout, default is 1 day.
 		];
 
@@ -129,8 +129,8 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 				ucli\CUCClient::CKT_SMID	=> '',
 			),
 		);
-		$cUCli->setConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
-		$cUCli->setConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
+		$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_DOMAIN, '.xs.cn' );
+		$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_SEED, self::CONST_SEED );
 
 		$sUMId		= $arrData[ ucli\CUCClient::CKX ][ ucli\CUCClient::CKX_UMID ];
 		$sCkString      = '';
@@ -175,8 +175,8 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 
 		//	...
 		$cUCli	= ucli\CUCClient::getInstance();
-		$cUCli->setConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
-		$cUCli->setConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
+		$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_DOMAIN, '.xs.cn' );
+		$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_SEED, self::CONST_SEED );
 
 		//	...
 		$nErrorId	= $cUCli->checkLogin();
@@ -202,8 +202,8 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 		//
 		//	make cookie
 		//
-		$cUCli->setConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
-		$cUCli->setConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
+		$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_DOMAIN, '.xs.cn' );
+		$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_SEED, self::CONST_SEED );
 
 		//	...
 		$sCookieString	= urldecode( 'X=mid%253D1011301016111816483435812320%2526nkn%253D%2525R6%25259Q%25258R%2525R5%2525O0%25258S%2525R9%2525OR%252599%2526t%253D0%2526imgid%253D159588np912r08093p37o5064930r6064%2526sts%253D1%2526act%253D0%2526src%253DCPJRO; T=v%253D1.0.2.1002%2526ltm%253D1466601791%2526rtm%253D1466688191%2526utm%253D1466688191%2526kpa%253D1%2526smid%253D%2526css%253D63pns46482qo51p7615nr1n479rop7o3%2526csc%253D2428648322' );
@@ -256,8 +256,8 @@ class CTestUCClient extends PHPUnit_Framework_TestCase
 				ucli\CUCClient::CKT_SMID	=> '',
 			),
 		);
-		$cUCli->setConfig( ucli\CUCClient::CFGKEY_DOMAIN, '.xs.cn' );
-		$cUCli->setConfig( ucli\CUCClient::CFGKEY_SEED, self::CONST_SEED );
+		$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_DOMAIN, '.xs.cn' );
+		$cUCli->setConfig( ucli\CUCClient::CONFIG_COOKIE_SEED, self::CONST_SEED );
 
 		$sUMId		= $arrData[ ucli\CUCClient::CKX ][ ucli\CUCClient::CKX_UMID ];
 		$sCkString      = '';

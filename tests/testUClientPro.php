@@ -43,8 +43,8 @@ class testUClientPro extends \PHPUnit\Framework\TestCase
 				UCProConst::CKT_SS_ID		=> '',
 			),
 		);
-		$cUClientPro->setConfig( UCProConst::CFGKEY_DOMAIN, '.xs.cn' );
-		$cUClientPro->setConfig( UCProConst::CFGKEY_SEED, self::CONST_SEED );
+		$cUClientPro->setConfig( UCProConst::CONFIG_COOKIE_DOMAIN, '.xs.cn' );
+		$cUClientPro->setConfig( UCProConst::CONFIG_COOKIE_SEED, self::CONST_SEED );
 
 		$sUMId		= $arrData[ UCProConst::CKX ][ UCProConst::CKX_MID ];
 		$sCkString      = '';

@@ -11,6 +11,11 @@ use dekuan\deuclientpro\UCProConst;
  */
 class UCProLib
 {
+	static function isPhpServerEnv()
+	{
+		return CLib::IsArrayWithKeys( $_SERVER );
+	}
+
 	static function getSafeVal( $sKey, $arrData, $vDefault = null )
 	{
 		if ( ! CLib::IsArrayWithKeys( $arrData ) )
