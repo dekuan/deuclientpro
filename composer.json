@@ -1,6 +1,6 @@
 {
-	"name": "dekuan/deuclient",
-	"description": "User Client SDK by DeKuan, Inc.",
+	"name": "dekuan/deuclientpro",
+	"description": "User Client Pro SDK by DeKuan, Inc.",
 	"type": "library",
 	"license": "MIT",
 	"authors": [
