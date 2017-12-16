@@ -211,6 +211,14 @@ class UClientPro
 	{
 		return $this->m_cUCProMain->getXTInstance()->getXTArray();
 	}
+	public function getXValue( $sKey )
+	{
+		return $this->m_cUCProMain->getXTInstance()->getXValue( $sKey );
+	}
+	public function getTValue( $sKey )
+	{
+		return $this->m_cUCProMain->getXTInstance()->getTValue( $sKey );
+	}
 
 }
 
