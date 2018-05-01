@@ -44,7 +44,6 @@
 		},
 		"classmap":
 		[
-			"tests/TestCase.php"
 		]
 	}
 }

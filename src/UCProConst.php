@@ -58,7 +58,7 @@ class UCProConst
 	//
 	//	config values
 	//
-	const CONFIG_TIME_SECONDS_YEAR	= 365 * 24 * 60 * 60;
+	const CONFIG_TIME_SECONDS_YEAR	= 31536000;		//	365 * 24 * 60 * 60;
 
 
 	//
