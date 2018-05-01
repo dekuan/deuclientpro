@@ -7,26 +7,33 @@ use dekuan\deuclientpro\Libs\UCProLib;
 
 
 /**
- *	CUClientPro
+ *	Class UClientPro
+ *	@package dekuan\deuclientpro
  */
 class UClientPro
 {
-	//	statics
+	/**
+	 *	statics
+	 *	@var
+	 */
 	protected static $g_cStaticInstance;
 
-
-	//
-	//	All operations/methods about cookies and encrypted $_COOKIE['X'], $_COOKIE['T']
-	//
+	/**
+	 *	All operations/methods about cookies and encrypted $_COOKIE['X'], $_COOKIE['T']
+	 *	@var Models\UCProMain|null
+	 */
 	protected $m_cUCProMain		= null;
 
-	//
-	//	cache
-	//
+	/**
+	 *	cache
+	 *	@var null
+	 */
 	protected $m_bIsLoggedIn	= null;
 	
-
-
+	
+	/**
+	 *	UClientPro constructor.
+	 */
         public function __construct()
         {
 		$this->m_cUCProMain	= new Models\UCProMain();
@@ -48,22 +55,35 @@ class UClientPro
 
 	
 
-        //
-        //	configuration
-        //
+	/**
+	 *	get configuration
+	 *	@param string $sKey
+	 *	@return array|mixed
+	 */
         public function getConfig( $sKey = '' )
         {
         	return $this->m_cUCProMain->getConfig( $sKey );
         }
+	
+	/**
+	 *	set configuration
+	 *	@param $sKey
+	 *	@param $vValue
+	 *	@return bool
+	 */
         public function setConfig( $sKey, $vValue )
         {
 		return $this->m_cUCProMain->setConfig( $sKey, $vValue );
         }
 
-
-        //
-        //	make user login
-        //
+	/**
+	 *	make user login
+	 *
+	 *	@param	$vData
+	 *	@param	bool	$bKeepAlive
+	 *	@param	string	$sCkString
+	 *	@return	int
+	 */
         public function makeLogin( $vData, $bKeepAlive = false, & $sCkString = '' )
         {
 		if ( UCProLib::isValidXTArray( $vData ) )
@@ -80,17 +100,21 @@ class UClientPro
 		}
 	}
 
-	//
-	//	log out
-	//
+	/**
+	 *	logout
+	 *	send HTTP headers to clear cookies
+	 *
+	 *	@return int
+	 */
         public function logout()
         {
                 return $this->m_cUCProMain->getXTInstance()->getCookieInstance()->setCookiesForLogout();
         }
 
-        //
-        //	log in
-        //
+	/**
+	 *	check login
+	 *	@return int
+	 */
         public function checkLogin()
         {
                 if ( null !== $this->m_bIsLoggedIn )
@@ -128,20 +152,30 @@ class UClientPro
                 //	...
                 return $nRet;
         }
-
+	
+	/**
+	 *	if user set flag to keep the session alive
+	 *	@return bool
+	 */
 	public function isKeepAlive()
 	{
 		$nKeepAlive = intval( $this->m_cUCProMain->getXTInstance()->getTValue( UCProConst::CKT_KP_ALIVE ) );
 		return ( 1 === $nKeepAlive );
 	}
-
+	
+	/**
+	 *	get full cookie string
+	 *	@return string
+	 */
 	public function getCookieString()
 	{
 		return $this->m_cUCProMain->getXTInstance()->getCookieInstance()->getCookieString();
 	}
 
-
-	//	if login info has timeout
+	/**
+	 *	if the session timeout
+	 *	@return bool
+	 */
 	public function isSessionTimeout()
 	{
 		//      ...
@@ -205,20 +239,43 @@ class UClientPro
 
 		return $bRet;
 	}
-
-
+	
+	
+	/**
+	 *	get XT array
+	 *	@return array
+	 */
 	public function getXTArray()
 	{
 		return $this->m_cUCProMain->getXTInstance()->getXTArray();
 	}
+	
+	/**
+	 *	get X value
+	 *	@param	$sKey
+	 *	@return	null|string
+	 */
 	public function getXValue( $sKey )
 	{
 		return $this->m_cUCProMain->getXTInstance()->getXValue( $sKey );
 	}
+	
+	/**
+	 *	get T value
+	 *	@param	$sKey
+	 *	@return	null|string
+	 */
 	public function getTValue( $sKey )
 	{
 		return $this->m_cUCProMain->getXTInstance()->getTValue( $sKey );
 	}
 
-}
+	/**
+	 *	@return null|string
+	 */
+	public function getSessionId()
+	{
+		return $this->getTValue( UCProConst::CKT_SS_ID );
+	}
 
+}
