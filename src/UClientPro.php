@@ -167,6 +167,15 @@ class UClientPro
 	 *	get full cookie string
 	 *	@return string
 	 */
+	public function getCookieArray()
+	{
+		return $this->m_cUCProMain->getXTInstance()->getCookieInstance()->getCookieArray();
+	}
+
+	/**
+	 *	get full cookie string
+	 *	@return string
+	 */
 	public function getCookieString()
 	{
 		return $this->m_cUCProMain->getXTInstance()->getCookieInstance()->getCookieString();
