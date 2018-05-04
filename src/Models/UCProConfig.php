@@ -7,8 +7,10 @@ use dekuan\deuclientpro\Libs\UCProLib;
 use dekuan\deuclientpro\UCProConst;
 
 
+
 /**
- *      class of UCProConfig
+ *	Class UCProConfig
+ *	@package dekuan\deuclientpro\Models
  */
 class UCProConfig
 {
@@ -17,8 +19,8 @@ class UCProConfig
 	//
 	protected $m_arrCfg	= [];
 
-	
-	
+
+
         public function __construct()
         {
 		$this->m_arrCfg	=
@@ -28,14 +30,18 @@ class UCProConfig
 			UCProConst::CONFIG_COOKIE_SEED		=> UCProConst::DEFAULT_SIGN_SEED,	//	seed
 			UCProConst::CONFIG_SECURE		=> UCProConst::DEFAULT_SECURE,
 			UCProConst::CONFIG_HTTP_ONLY		=> UCProConst::DEFAULT_HTTP_ONLY,
-			UCProConst::CONFIG_SS_TIMEOUT		=> UCProConst::DEFAULT_SS_TIMEOUT,	//	session timeout, default is 1 day.
+			UCProConst::CONFIG_COOKIE_TIMEOUT	=> UCProConst::DEFAULT_COOKIE_TIMEOUT,	//	session timeout, default is 1 day.
 		];
         }
         public function __destruct()
         {
         }
-
-
+	
+	
+	/**
+	 *	@param	null $sKey
+	 *	@return	array|mixed
+	 */
 	public function getConfig( $sKey = null )
 	{
 		if ( CLib::IsExistingString( $sKey ) &&
@@ -48,6 +54,12 @@ class UCProConfig
 			return $this->m_arrCfg;
 		}
 	}
+	
+	/**
+	 *	@param	$sKey
+	 *	@param	$vValue
+	 *	@return bool
+	 */
 	public function setConfig( $sKey, $vValue )
 	{
 		if ( CLib::IsExistingString( $sKey ) &&
@@ -62,17 +74,21 @@ class UCProConfig
 			return false;
 		}
 	}
+	
+	/**
+	 *	@param $arrCfg
+	 */
 	public function cloneConfig( $arrCfg )
 	{
 		$this->m_arrCfg = $arrCfg;
 	}
+
 	
 	
-	
-	
-	public function getConfig_nSessionTimeout()
+
+	public function getConfig_nCookieTimeout()
 	{
-		return intval( UCProLib::getSafeVal( UCProConst::CONFIG_SS_TIMEOUT, $this->m_arrCfg, UCProConst::DEFAULT_SS_TIMEOUT ) );
+		return intval( UCProLib::getSafeVal( UCProConst::CONFIG_COOKIE_TIMEOUT, $this->m_arrCfg, UCProConst::DEFAULT_COOKIE_TIMEOUT ) );
 	}
 
 	public function getConfig_bHttpOnly()

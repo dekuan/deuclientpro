@@ -4,7 +4,7 @@ namespace dekuan\deuclientpro;
 
 
 use dekuan\delib\CLib;
-
+use dekuan\vdata\CConst;
 
 
 /**
@@ -18,6 +18,20 @@ class UClientProTest extends \PHPUnit\Framework\TestCase
 	const CONST_SEED		= '5adf23adb-8815-46ea-ees1f-198sdcsf380f04/dfdfdfdfdf-5af5c-1234f-88acd-1121134234343434343';
 	const CONST_COOKIE_STRING	= 'X=mid%253D137954853350540966%2526nkn%253D%2525R5%2525O0%25258S%2525R6%252598%25259S%2525R6%252598%25259S%2526t%253D0%2526avatar%253D137954853350540966%2526sts%253D1%2526act%253D0%2526src%253DJRPUNG%2526digest%253Dqvtrfg; T=v%253D1.0.1.1000%2526ltm%253D1513337630%2526rtm%253D1513424030%2526utm%253D1513424030%2526kpa%253D1%2526ssid%253D129018269989342999%2526csm%253D7o1759243n59rn9106nos9os7s9pn39o%2526csc%253D387498538';
 	
+
+	
+	public function testCheckSession()
+	{
+		$cUClientPro	= new UClientPro();
+
+		$nCheckReturn	= null;
+		$nCallCheck	= $cUClientPro->checkSession( $nCheckReturn );
+
+		$this->assertEquals( UCProError::SUCCESS, $nCallCheck );
+		$this->assertEquals( CConst::ERROR_SUCCESS, $nCheckReturn );
+	}
+	
+
 	
 	/**
 	 * @runInSeparateProcess
@@ -49,7 +63,8 @@ class UClientProTest extends \PHPUnit\Framework\TestCase
 				UCProConst::CKT_REFRESH_TM	=> $nRefreshTime,
 				UCProConst::CKT_UPDATE_TM	=> $nUpdateTime,
 				UCProConst::CKT_KP_ALIVE	=> 1,
-				UCProConst::CKT_SS_ID		=> 129018269989342999,
+				UCProConst::CKT_SS_ID		=> strval( 129018269989342999 ),
+				UCProConst::CKT_SS_URL		=> '',
 			),
 		);
 

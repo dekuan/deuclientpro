@@ -10,4 +10,5 @@ $loader->addPsr4( 'dekuan\\deuclientpro\\', __DIR__ . '/../src' );
 $loader->addPsr4( 'dekuan\\deuclientpro\\', __DIR__ );
 $loader->addPsr4( 'dekuan\\deuclientpro\\Models\\', __DIR__ . '/../src/Models' );
 $loader->addPsr4( 'dekuan\\delib\\', __DIR__ . '/../vendor/dekuan/delib/src/' );
+$loader->addPsr4( 'dekuan\\vdata\\', __DIR__ . '/../vendor/dekuan/vdata/src/' );
 

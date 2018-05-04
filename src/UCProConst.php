@@ -32,6 +32,7 @@ class UCProConst
 	const CKT_UPDATE_TM	= 'utm';	//	int	- last update time
 	const CKT_KP_ALIVE	= 'kpa';	//	int	- keep alive, values( YES, NO )
 	const CKT_SS_ID		= 'ssid';	//	string	- session id
+	const CKT_SS_URL	= 'ssurl';	//	string	- URL used to check the session by session id
 	const CKT_CKS_MD5	= 'csm';	//	string	- checksum sign
 	const CKT_CKS_CRC	= 'csc';	//	string	- checksum crc
 
@@ -41,9 +42,9 @@ class UCProConst
 	const CONFIG_COOKIE_DOMAIN	= 'cookie_domain';	//      domain that the cookie is available to.
 	const CONFIG_COOKIE_PATH	= 'cookie_path';	//      path on the server in which the cookie will be available on.
 	const CONFIG_COOKIE_SEED	= 'cookie_seed';	//	seed for making sign
+	const CONFIG_COOKIE_TIMEOUT	= 'cookie_timeout';	//	timeout of cookie
 	const CONFIG_SECURE		= 'secure';		//	indicates that the cookie should only be transmitted over a secure HTTPS connection from the client.
 	const CONFIG_HTTP_ONLY		= 'http_only';		//	when TRUE the cookie will be made accessible only through the HTTP protocol.
-	const CONFIG_SS_TIMEOUT		= 'ss_timeout';		//	session timeout
 
 	//
 	//	default values
@@ -53,7 +54,7 @@ class UCProConst
 	const DEFAULT_SIGN_SEED		= '03abafc5ssss-2f15-66ea-bc1f-51805f380f06/9b2331cb-8a9c-4a29-a9ab-25e13359279c';
 	const DEFAULT_SECURE		= false;		//	cookie should only be transmitted over a secure HTTPS connection from the client
 	const DEFAULT_HTTP_ONLY		= true;			//	cookie will be made accessible only through the HTTP protocol
-	const DEFAULT_SS_TIMEOUT	= 86400;		//	session timeout, default is 1 day.
+	const DEFAULT_COOKIE_TIMEOUT	= 86400;		//	session timeout, default is 1 day.
 
 	//
 	//	config values
