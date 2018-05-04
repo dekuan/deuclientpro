@@ -125,27 +125,25 @@ class UCProChecksum extends UCProBase
 		//
 		//	prevent all of the following fields from tampering
 		//
-		$sRet = "" .
-		strval( UCProLib::getSafeVal( UCProConst::CKX_MID, $arrData[ UCProConst::CKX ], '' ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKX_TYPE, $arrData[ UCProConst::CKX ], 0 ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKX_STATUS, $arrData[ UCProConst::CKX ], 0 ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKX_ACTION, $arrData[ UCProConst::CKX ], 0 ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKX_SRC, $arrData[ UCProConst::CKX ], '' ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKX_DIGEST, $arrData[ UCProConst::CKX ], '' ) ) . "-" .
-		"|||" .
-		strval( UCProLib::getSafeVal( UCProConst::CKT_VER, $arrData[ UCProConst::CKT ], '' ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKT_LOGIN_TM, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKT_REFRESH_TM, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKT_UPDATE_TM, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKT_KP_ALIVE, $arrData[ UCProConst::CKT ], 0 ) ) . "-" .
-		strval( UCProLib::getSafeVal( UCProConst::CKT_SS_ID, $arrData[ UCProConst::CKT ], '' ) );
-
-//		var_dump( $sRet );
-//		$e = new \Exception;
-//		var_dump( $e->getTraceAsString() );
+		$arrSourceList	=
+			[
+				strval( UCProLib::getSafeVal( UCProConst::CKX_MID, $arrData[ UCProConst::CKX ], '' ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKX_TYPE, $arrData[ UCProConst::CKX ], 0 ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKX_STATUS, $arrData[ UCProConst::CKX ], 0 ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKX_ACTION, $arrData[ UCProConst::CKX ], 0 ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKX_SRC, $arrData[ UCProConst::CKX ], '' ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKX_DIGEST, $arrData[ UCProConst::CKX ], '' ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKT_VER, $arrData[ UCProConst::CKT ], '' ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKT_LOGIN_TM, $arrData[ UCProConst::CKT ], 0 ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKT_REFRESH_TM, $arrData[ UCProConst::CKT ], 0 ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKT_UPDATE_TM, $arrData[ UCProConst::CKT ], 0 ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKT_KP_ALIVE, $arrData[ UCProConst::CKT ], 0 ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKT_SS_ID, $arrData[ UCProConst::CKT ], '' ) ),
+				strval( UCProLib::getSafeVal( UCProConst::CKT_SS_URL, $arrData[ UCProConst::CKT ], '' ) ),
+			];
 
 		//	...
-		return $sRet;
+		return implode( '--', $arrSourceList );
 	}
 }
 

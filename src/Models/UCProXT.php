@@ -92,7 +92,15 @@ class UCProXT extends UCProBase
 
 		return $vRet;
 	}
+	
 
+	/**
+	 *	flash XT Array
+	 *	@param	$arrData
+	 *	@param	bool	$bKeepAlive
+	 *	@param	null	$arrXTArrayReturn
+	 *	@return	int
+	 */
 	public function flashXTArray( $arrData, $bKeepAlive = false, & $arrXTArrayReturn = null )
 	{
 		if ( ! UCProLib::isValidXTArray( $arrData ) )
@@ -128,6 +136,10 @@ class UCProXT extends UCProBase
 	}
 
 
+	/**
+	 *	check XT Array
+	 *	@return int
+	 */
 	public function checkXTArray()
 	{
 		$nRet = UCProError::MODELS_UCPROXT_CHECKXTARRAY_FAILURE;
@@ -164,6 +176,11 @@ class UCProXT extends UCProBase
 	}
 
 
+	/**
+	 *	encrypt XT Array
+	 *	@param	$arrData
+	 *	@return	array|null
+	 */
 	public function encryptXTArray( $arrData )
 	{
 		if ( ! UCProLib::isValidXTArrayInDetail( $arrData ) )
@@ -191,6 +208,7 @@ class UCProXT extends UCProBase
 			UCProConst::CKT_UPDATE_TM	=> UCProLib::getSafeVal( UCProConst::CKT_UPDATE_TM, $arrData[ UCProConst::CKT ], 0 ),
 			UCProConst::CKT_KP_ALIVE	=> UCProLib::getSafeVal( UCProConst::CKT_KP_ALIVE, $arrData[ UCProConst::CKT ], 0 ),
 			UCProConst::CKT_SS_ID		=> UCProLib::getSafeVal( UCProConst::CKT_SS_ID, $arrData[ UCProConst::CKT ], '' ),
+			UCProConst::CKT_SS_URL		=> UCProLib::getSafeVal( UCProConst::CKT_SS_URL, $arrData[ UCProConst::CKT ], '' ),
 			UCProConst::CKT_CKS_MD5		=> UCProLib::getSafeVal( UCProConst::CKT_CKS_MD5, $arrData[ UCProConst::CKT ], '' ),
 			UCProConst::CKT_CKS_CRC		=> UCProLib::getSafeVal( UCProConst::CKT_CKS_CRC, $arrData[ UCProConst::CKT ], '' ),
 		);
@@ -211,7 +229,13 @@ class UCProXT extends UCProBase
 			UCProConst::CKT	=> UCProLib::buildQueryString( $arrT ),
 		);
 	}
+	
 
+	/**
+	 *	decrypt XT Array
+	 *	@param	$arrData
+	 *	@return	array|null
+	 */
 	public function decryptXTArray( $arrData )
 	{
 		if ( ! CLib::IsArrayWithKeys( $arrData, [ UCProConst::CKX, UCProConst::CKT ] ) )
@@ -255,6 +279,7 @@ class UCProXT extends UCProBase
 						UCProConst::CKT_UPDATE_TM	=> UCProLib::getSafeVal( UCProConst::CKT_UPDATE_TM, $arrPT, 0 ),
 						UCProConst::CKT_KP_ALIVE	=> UCProLib::getSafeVal( UCProConst::CKT_KP_ALIVE, $arrPT, 0 ),
 						UCProConst::CKT_SS_ID		=> UCProLib::getSafeVal( UCProConst::CKT_SS_ID, $arrPT, '' ),
+						UCProConst::CKT_SS_URL		=> UCProLib::getSafeVal( UCProConst::CKT_SS_URL, $arrPT, '' ),
 						UCProConst::CKT_CKS_MD5		=> UCProLib::getSafeVal( UCProConst::CKT_CKS_MD5, $arrPT, '' ),
 						UCProConst::CKT_CKS_CRC		=> UCProLib::getSafeVal( UCProConst::CKT_CKS_CRC, $arrPT, 0 ),
 					);
